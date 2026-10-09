@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="kk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Дәрігерлер кестесін қарап, емханаға қабылдауға жазылыңыз.">
+  <title>Емханаға жазылу</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#home" aria-label="Емхана басты беті">
+      <span class="brand-mark" aria-hidden="true">+</span>
+      <span>Ақниет <small>отбасылық емханасы</small></span>
+    </a>
+    <nav aria-label="Негізгі мәзір">
+      <a href="#doctors">Дәрігерлер</a>
+      <a href="#schedule">Кесте</a>
+      <a class="nav-button" href="#booking">Қабылдауға жазылу</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-copy">
+        <p class="eyebrow"><span></span> Сіздің денсаулығыңыз — басты назарда</p>
+        <h1>Дәрігерге жазылу<br><em>оңай әрі ыңғайлы</em></h1>
+        <p class="hero-text">Маман таңдаңыз, бос уақытты белгілеңіз — қабылдауыңызды бірнеше қадамда жоспарлаңыз.</p>
+        <a class="primary-button" href="#booking">Қабылдауға жазылу <span aria-hidden="true">↗</span></a>
+        <div class="hero-note"><span aria-hidden="true">✓</span> Ыңғайлы уақытты өзіңіз таңдаңыз</div>
+      </div>
+      <div class="hero-card" aria-label="Емхана туралы">
+        <div class="card-glow"></div>
+        <div class="medical-cross" aria-hidden="true">+</div>
+        <div class="hero-card-content">
+          <span class="card-label">Қамқорлық күн сайын</span>
+          <strong>Денсаулығыңызға<br>уақыт бөліңіз</strong>
+          <span class="card-caption">Өзіңізге жақын маманды таңдаңыз</span>
+        </div>
+        <div class="hero-card-footer"><span class="online-dot"></span> Қабылдау кестесі қолжетімді</div>
+      </div>
+    </section>
+
+    <section class="section doctors-section" id="doctors">
+      <div class="section-heading">
+        <div><p class="eyebrow">БІЗДІҢ МАМАНДАР</p><h2>Дәрігерді таңдаңыз</h2></div>
+        <p>Әр маманның қабылдау уақытын қарап, өзіңізге ыңғайлысын белгілеңіз.</p>
+      </div>
+      <div class="doctor-grid">
+        <article class="doctor-card">
+          <div class="doctor-avatar avatar-mint" aria-hidden="true">Т</div>
+          <div class="doctor-info"><span class="specialty">ЖАЛПЫ МАМАН</span><h3>Терапевт</h3><p>Ересектердің жалпы денсаулығы</p></div>
+          <div class="doctor-schedule"><span>Дс – Жм</span><strong>09:00 – 17:00</strong></div>
+          <button class="choose-doctor" type="button" data-doctor="therapist">Таңдау <span aria-hidden="true">→</span></button>
+        </article>
+        <article class="doctor-card">
+          <div class="doctor-avatar avatar-lilac" aria-hidden="true">К</div>
+          <div class="doctor-info"><span class="specialty">ЖҮРЕК ДЕНСАУЛЫҒЫ</span><h3>Кардиолог</h3><p>Жүрек пен қан тамырлары</p></div>
+          <div class="doctor-schedule"><span>Дс – Бс</span><strong>10:00 – 16:00</strong></div>
+          <button class="choose-doctor" type="button" data-doctor="cardiologist">Таңдау <span aria-hidden="true">→</span></button>
+        </article>
+        <article class="doctor-card">
+          <div class="doctor-avatar avatar-peach" aria-hidden="true">П</div>
+          <div class="doctor-info"><span class="specialty">БАЛАЛАР ДЕНСАУЛЫҒЫ</span><h3>Педиатр</h3><p>Балаларға профилактикалық көмек</p></div>
+          <div class="doctor-schedule"><span>Дс – Жм</span><strong>09:00 – 15:00</strong></div>
+          <button class="choose-doctor" type="button" data-doctor="pediatrician">Таңдау <span aria-hidden="true">→</span></button>
+        </article>
+      </div>
+    </section>
+
+    <section class="booking-section" id="booking">
+      <div class="booking-intro">
+        <p class="eyebrow">ҚАБЫЛДАУҒА ЖАЗЫЛУ</p>
+        <h2>Өзіңізге қолайлы<br>уақытты белгілеңіз</h2>
+        <p>Форманы толтырыңыз. Таңдалған қабылдау уақыты осы бетте көрсетіледі.</p>
+        <div class="booking-step"><span>01</span><div><strong>Маман мен күнді таңдаңыз</strong><small>Кестеден бос уақытты белгілеңіз</small></div></div>
+        <div class="booking-step"><span>02</span><div><strong>Байланыс дерегін енгізіңіз</strong><small>Атыңыз бен телефон нөміріңіз жеткілікті</small></div></div>
+      </div>
+      <form class="booking-form" id="booking-form">
+        <div class="form-heading"><div><h3>Қабылдауға жазылу</h3><p>Барлық өрістерді толтырыңыз</p></div><span class="form-icon" aria-hidden="true">✳</span></div>
+        <label for="patient-name">Аты-жөніңіз</label>
+        <input id="patient-name" name="name" type="text" placeholder="Мысалы, Айдана Нұрланқызы" autocomplete="name" required>
+        <label for="patient-phone">Телефон нөмірі</label>
+        <input id="patient-phone" name="phone" type="tel" placeholder="+7 700 000 00 00" autocomplete="tel" required>
+        <div class="form-row">
+          <div><label for="doctor">Дәрігер</label><select id="doctor" name="doctor" required></select></div>
+          <div><label for="appointment-date">Қабылдау күні</label><input id="appointment-date" name="date" type="date" required></div>
+        </div>
+        <label for="appointment-time">Бос уақыт</label>
+        <select id="appointment-time" name="time" required></select>
+        <button class="primary-button submit-button" type="submit">Жазылуды растау <span aria-hidden="true">→</span></button>
+        <p class="privacy-note"><span aria-hidden="true">▣</span> Деректеріңіз бұл үлгі беттен ешқайда жіберілмейді.</p>
+        <div class="form-message" id="form-message" role="status" aria-live="polite" hidden></div>
+      </form>
+    </section>
+
+    <section class="schedule-section section" id="schedule">
+      <div class="schedule-icon" aria-hidden="true">◷</div>
+      <div><p class="eyebrow">ҮЛГІ ҚАБЫЛДАУ КЕСТЕСІ</p><h2>Дүйсенбі – жұма</h2><p>Дәрігерлердің жеке қабылдау уақыты әртүрлі. Нақты уақытты жазылу формасынан таңдаңыз.</p></div>
+      <a href="#booking" class="text-link">Уақыт таңдау <span aria-hidden="true">→</span></a>
+    </section>
+  </main>
+
+  <footer class="site-footer"><a class="brand footer-brand" href="#home"><span class="brand-mark" aria-hidden="true">+</span><span>Ақниет <small>отбасылық емханасы</small></span></a><p>Оқу жобасының үлгі беті · Қабылдау нақты тіркелмейді</p></footer>
+</body>
+</html>
+
