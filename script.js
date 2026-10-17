@@ -51,7 +51,7 @@ const reviews=[
  {name:"Әсем",initial:"Ә",date:"28.03.2025",text:{kk:"Формада бос уақыттар анық көрсетілген. Тіркелу жолы түсінікті болды.",ru:"В форме хорошо видны свободные часы. Порядок записи понятный.",en:"The open time slots were clear, and the booking steps made sense."}}
 ];
 const branches=[{id:"naz",labelKey:"branchNorth"},{id:"utep",labelKey:"branchUtep"}];
-const doctorPhotos=["photo-1559839734-2b71ea197ec2","photo-1612349317150-e413f6a5b16d","photo-1622253692010-333f2da6031d","photo-1594824476967-48c8b964273f","photo-1582750433449-648ed127bb54","photo-1612531386530-97286d97c2d2","photo-1537368910025-700350fe46c7","photo-1614608682850-e0d6ed316d47","photo-1623854767648-e7bb8009f0db","photo-1622902046580-2b47f47f5471"];
+const doctorPhotos=["photo-1612349317150-e413f6a5b16d","photo-1559839734-2b71ea197ec2","photo-1622253692010-333f2da6031d","photo-1594824476967-48c8b964273f","photo-1582750433449-648ed127bb54","photo-1537368910025-700350fe46c7","photo-1612531386530-97286d97c2d2","photo-1614608682850-e0d6ed316d47","photo-1622902046580-2b47f47f5471","photo-1623854767648-e7bb8009f0db"];
 const dayNames={kk:["жс","дс","сс","ср","бс","жм","сб"],ru:["вс","пн","вт","ср","чт","пт","сб"],en:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]};
 let language=localStorage.getItem("clinic-language");
 if(!["kk","ru","en"].includes(language)) language="kk";
