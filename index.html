@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Ақниет емханасының дәрігерлері, филиалдары және қабылдауға жазылу үлгісі.">
+  <meta name="description" content="Ақниет отбасылық клиникасы: дәрігерлер, мекенжайлар, қызметтер және қабылдауға жазылу.">
   <meta name="theme-color" content="#087f73">
   <title>Ақниет — емханаға жазылу</title>
   <link rel="stylesheet" href="style.css">
-  <script src="script.js?v=gender-fix-3" defer></script>
+  <script src="script.js?v=polish-1" defer></script>
 </head>
 <body>
-  <div class="demo-strip" data-i18n="demoStrip">Оқу жобасының демонстрациялық үлгісі · Нақты емхана қызметі емес</div>
+  <div class="demo-strip" data-i18n="demoStrip">Сізге және отбасыңызға арналған қамқорлық</div>
   <header class="site-header">
     <a class="brand" href="#home" aria-label="Ақниет — басты бет">
       <span class="brand-mark" aria-hidden="true">✚</span>
@@ -95,7 +95,7 @@
     </section>
 
     <section class="section doctors-section" id="assistant">
-      <div class="section-heading"><div><p class="eyebrow" data-i18n="assistantEyebrow">САНДЫҚ КӨМЕКШІ</p><h2 data-i18n="assistantTitle">Ақниет көмекшісі</h2></div><p data-i18n="assistantLead">Сұрағыңызды жазыңыз. Бұл кілт сөздермен жұмыс істейтін демо көмекші, медициналық диагноз қоймайды.</p></div>
+      <div class="section-heading"><div><p class="eyebrow" data-i18n="assistantEyebrow">САНДЫҚ КӨМЕКШІ</p><h2 data-i18n="assistantTitle">Ақниет көмекшісі</h2></div><p data-i18n="assistantLead">Клиника, дәрігер, қабылдау, мекенжай және қызметтер туралы сұраңыз. Көмекші диагноз қоймайды.</p></div>
       <form class="booking-form" id="assistant-form">
         <label for="assistant-question" data-i18n="assistantQuestion">Қандай ақпарат керек?</label>
         <div class="form-row"><input id="assistant-question" type="text" maxlength="240" placeholder="Мысалы: терапевт бағасы немесе филиал" required><button class="button button-primary" type="submit" data-i18n="assistantSend">Сұрау</button></div>
@@ -124,6 +124,23 @@
     <section class="section reviews-section" id="reviews">
       <div class="section-heading"><div><p class="eyebrow" data-i18n="reviewsEyebrow">ҚОНАҚТАРДЫҢ ПІКІРІ</p><h2 data-i18n="reviewsTitle">Жылы сөздер</h2></div><p data-i18n="reviewsLead">Төмендегі пікірлер сайт көрінісін көрсету үшін ойдан жазылған.</p></div>
       <div class="review-grid" id="review-grid"></div><p class="fiction-note" data-i18n="reviewsNote">Бұл пікірлер нақты пациенттерден алынбаған.</p>
+    </section>
+
+    <section class="booking-section education-section" id="education">
+      <div class="booking-intro">
+        <p class="eyebrow" data-i18n="trustEyebrow">АШЫҚТЫҚ ПЕН СЕНІМ</p>
+        <h2 data-i18n="trustTitle">Сенім ашық ақпараттан басталады</h2>
+        <p data-i18n="trustLead">Дәрігер таңдағанда біліктілігін, тәжірибесін және қызмет бағасын тексеріңіз. Бұл беттегі маман профильдері — оқу жобасының көрнекі үлгілері.</p>
+        <div class="booking-step"><span>01</span><div><b data-i18n="trustPoint1">Біліктілігін нақтылаңыз</b><small data-i18n="trustPoint1Text">Дипломы мен маман сертификатын сұраңыз.</small></div></div>
+        <div class="booking-step"><span>02</span><div><b data-i18n="trustPoint2">Ем жоспарын талқылаңыз</b><small data-i18n="trustPoint2Text">Тексеру мен емнің мақсатын дәрігерден сұрап алыңыз.</small></div></div>
+        <div class="booking-step"><span>03</span><div><b data-i18n="trustPoint3">Бағаны алдын ала біліңіз</b><small data-i18n="trustPoint3Text">Қосымша қызметтердің құнын қабылдауға дейін нақтылаңыз.</small></div></div>
+      </div>
+      <div class="booking-form education-video">
+        <div class="form-heading"><div><h3 data-i18n="videoTitle">Хирургия туралы пайдалы видео</h3><p data-i18n="videoText">Johns Hopkins Medicine мамандарының пациенттерге арналған сұрақ-жауап видеосы</p></div><span class="form-icon">▶</span></div>
+        <iframe class="medical-video" src="https://www.youtube-nocookie.com/embed/rfWOI6is_6o" title="GERD and swallowing FAQ — Johns Hopkins Medicine" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <p class="privacy-note" data-i18n="videoDisclaimer">Видео сыртқы дереккөзден алынған. Операция кадрлары көрсетілмейді; медициналық шешімді дәрігермен талқылаңыз.</p>
+        <a href="https://www.hopkinsmedicine.org/surgery/specialty-areas/minimally-invasive/" target="_blank" rel="noopener noreferrer" data-i18n="videoSource">Дереккөз: Johns Hopkins Medicine ↗</a>
+      </div>
     </section>
   </main>
 
