@@ -1,171 +1,98 @@
-const doctors = {
-  therapist: {
-    name: "Терапевт",
-    days: [1, 2, 3, 4, 5],
-    start: 9,
-    end: 17
+const translations = {
+  kk: {
+    demoStrip:"Оқу жобасының демонстрациялық үлгісі · Нақты емхана қызметі емес",brandTag:"отбасылық емханасы",navAbout:"Емхана туралы",navDoctors:"Дәрігерлер",navBranches:"Филиалдар",navReviews:"Пікірлер",navBooking:"Жазылу",login:"Кіру",languageLabel:"Тіл",
+    heroEyebrow:"СІЗДІҢ ДЕНСАУЛЫҒЫҢЫЗ — БІЗ ҮШІН МАҢЫЗДЫ",heroTitle:"Денсаулыққа қамқорлық<br><em>жақыннан басталады</em>",heroText:"Маман мен филиалды таңдап, өзіңізге ыңғайлы қабылдау уақытын белгілеңіз.",heroCta:"Қабылдауға жазылу <span>→</span>",heroDoctors:"Дәрігерлерді көру",factDoctors:"маман профилі",factBranches:"филиал мекенжайы",factLanguages:"тіл нұсқасы",heroCardTitle:"Қамқорлық әр қадамда",heroCardText:"Өзіңізге ыңғайлы уақытты таңдаңыз",heroIllustration:"Ақниет · отбасылық медицина",
+    aboutEyebrow:"АҚНИЕТ ЕМХАНАСЫ",aboutTitle:"Сізге жақын медициналық көмек",aboutLead:"Ақниет — оқу жобасы үшін жасалған емхана сайтының үлгісі.",aboutCardTitle:"Күнделікті қамқорлық",aboutCardText:"Бұл демонстрациялық бет дәрігерлерді қарау мен қабылдауға жазылу жолын көрсету үшін жасалды. Мұнда көрсетілген деректер нақты медициналық қызметке жатпайды.",aboutBranchesTitle:"Екі ыңғайлы мекенжай",aboutBranchesText:"Назарбаева және Өтепова көшелеріндегі үлгі филиалдар.",aboutBookingTitle:"Қарапайым жазылу",aboutBookingText:"Маман, күн мен бос уақытты таңдаңыз. Жазылу тек осы браузердегі демонстрация ретінде жұмыс істейді.",fictionNotice:"Ескерту: дәрігерлердің аты-жөні, бейнелері, тәжірибесі және пікірлер — ойдан шығарылған оқу үлгілері.",
+    doctorsEyebrow:"БІЗДІҢ МАМАНДАР",doctorsTitle:"Дәрігерлермен танысыңыз",doctorsLead:"Төмендегі профильдер ойдан шығарылған мысалдар. Қабылдау уақыты да үлгі.",sampleTag:"Үлгі профиль",exp:"тәжірибе",choose:"Жазылу →",
+    bookingEyebrow:"ОНЛАЙН ЖАЗЫЛУ ҮЛГІСІ",bookingTitle:"Қабылдау уақытын таңдаңыз",bookingText:"Бұл форма оқу демонстрациясы үшін. Мәліметтер серверге немесе емханаға жіберілмейді.",stepOneTitle:"Маман мен филиалды таңдаңыз",stepOneText:"Сізге қолайлы мекенжайды белгілеңіз",stepTwoTitle:"Күн мен бос уақытты таңдаңыз",stepTwoText:"Бос слоттар үлгі ретінде көрсетіледі",formTitle:"Қабылдауға жазылу",formSub:"Байланыс деректері тек осы формада қолданылады",nameLabel:"Аты-жөніңіз",phoneLabel:"Телефон нөмірі",doctorLabel:"Дәрігер",branchLabel:"Филиал",dateLabel:"Күні",timeLabel:"Уақыты",submitBooking:"Үлгі жазылуды растау <span>→</span>",privacyNote:"Қауіпсіздік: аты-жөніңіз бен телефон нөміріңіз сақталмайды және жіберілмейді.",
+    branchesEyebrow:"БІЗДІҢ МЕКЕНЖАЙЛАР",branchesTitle:"Өзіңізге жақын филиал",branchesLead:"Көрсетілген мекенжайлар жобада сұралған мысалдар. Бармас бұрын нақты мекенжайды тексеріңіз.",branchOneLabel:"1-ФИЛИАЛ · ҮЛГІ",branchOneName:"Назарбаева филиалы",branchTwoLabel:"2-ФИЛИАЛ · ҮЛГІ",branchTwoName:"Өтепова филиалы",openMap:"Картадан ашу ↗",mapNote:"Карта сілтемесі мекенжайды іздейді; филиалдардың нақты бар екені расталмаған.",
+    reviewsEyebrow:"ҚОНАҚТАРДЫҢ ПІКІРІ",reviewsTitle:"Жылы сөздер",reviewsLead:"Төмендегі пікірлер сайт көрінісін көрсету үшін ойдан жазылған.",reviewsNote:"Бұл пікірлер нақты пациенттерден алынбаған.",
+    footerText:"Оқу жобасының демонстрациясы · Нақты қабылдау тіркелмейді",backTop:"Жоғары ↑",authEyebrow:"ДЕМОНСТРАЦИЯЛЫҚ КІРУ",authTitle:"Қош келдіңіз!",authText:"Үлгі сайтты көру үшін аты-жөніңіз бен телефон нөміріңізді енгізіңіз.",authSubmit:"Үлгіні ашу <span>→</span>",authDisclaimer:"Бұл шынайы авторизация емес. Енгізілген деректер тексерілмейді, сақталмайды және ешқайда жіберілмейді.",cookieTitle:"Cookie таңдауы",cookieText:"Келіссеңіз, сайт әрекеттерінің дерексіз түрлері осы браузердегі cookie-де сақталады. Аты-жөн мен телефон жазылмайды.",cookieDecline:"Қабылдамау",cookieAccept:"Келісемін",
+    docOptions:"Дәрігерді таңдаңыз",branchOptions:"Филиалды таңдаңыз",timeOptions:"Алдымен дәрігер мен күнді таңдаңыз",selectTime:"Бос уақытты таңдаңыз",closed:"Бұл күні дәрігер қабылдамайды",noSlots:"Бос уақыт жоқ",errTime:"Қабылдау уақытын таңдаңыз.",errTaken:"Бұл уақыт жаңа ғана бос емес болып қалды. Басқа уақытты таңдаңыз.",success:"Демонстрациялық жазылу дайын: {date}, {time}. Бұл ақпарат емханаға жіберілген жоқ.",authSuccess:"Демонстрация ашылды. Қайта кіру үшін «Кіру» түймесін басыңыз.",required:"Аты-жөніңіз бен телефон нөмірін толтырыңыз.",branchNorth:"Назарбаева 262/1",branchUtep:"Өтепова 29"
   },
-  cardiologist: {
-    name: "Кардиолог",
-    days: [1, 2, 3, 4],
-    start: 10,
-    end: 16
+  ru: {
+    demoStrip:"Демонстрационная версия учебного проекта · Не является реальной клиникой",brandTag:"семейная клиника",navAbout:"О клинике",navDoctors:"Врачи",navBranches:"Филиалы",navReviews:"Отзывы",navBooking:"Запись",login:"Войти",languageLabel:"Язык",
+    heroEyebrow:"ВАШЕ ЗДОРОВЬЕ ВАЖНО ДЛЯ НАС",heroTitle:"Забота о здоровье<br><em>начинается рядом</em>",heroText:"Выберите специалиста и филиал, затем укажите удобное время приёма.",heroCta:"Записаться на приём <span>→</span>",heroDoctors:"Посмотреть врачей",factDoctors:"профилей специалистов",factBranches:"адреса филиалов",factLanguages:"языка",heroCardTitle:"Забота на каждом шаге",heroCardText:"Выберите удобное для вас время",heroIllustration:"Акниет · семейная медицина",
+    aboutEyebrow:"КЛИНИКА АКНИЕТ",aboutTitle:"Медицинская помощь рядом",aboutLead:"Акниет — пример сайта клиники, созданный для учебного проекта.",aboutCardTitle:"Забота каждый день",aboutCardText:"Демонстрационная страница показывает просмотр врачей и пример записи. Указанные здесь данные не относятся к реальной медицинской услуге.",aboutBranchesTitle:"Два удобных адреса",aboutBranchesText:"Примеры филиалов на улицах Назарбаева и Утепова.",aboutBookingTitle:"Простая запись",aboutBookingText:"Выберите специалиста, дату и свободное время. Запись работает только как демонстрация в этом браузере.",fictionNotice:"Обратите внимание: имена, изображения, опыт врачей и отзывы вымышлены и созданы для учебного примера.",
+    doctorsEyebrow:"НАШИ СПЕЦИАЛИСТЫ",doctorsTitle:"Познакомьтесь с врачами",doctorsLead:"Профили ниже вымышленные. Расписание также приведено для примера.",sampleTag:"Пример профиля",exp:"опыта",choose:"Записаться →",
+    bookingEyebrow:"ПРИМЕР ОНЛАЙН-ЗАПИСИ",bookingTitle:"Выберите время приёма",bookingText:"Форма создана для учебной демонстрации. Данные не отправляются на сервер или в клинику.",stepOneTitle:"Выберите врача и филиал",stepOneText:"Укажите удобный адрес",stepTwoTitle:"Выберите дату и время",stepTwoText:"Свободные слоты приведены для примера",formTitle:"Запись на приём",formSub:"Контактные данные используются только в этой форме",nameLabel:"Ваше имя",phoneLabel:"Номер телефона",doctorLabel:"Врач",branchLabel:"Филиал",dateLabel:"Дата",timeLabel:"Время",submitBooking:"Подтвердить пример записи <span>→</span>",privacyNote:"Безопасность: имя и номер телефона не сохраняются и никуда не отправляются.",
+    branchesEyebrow:"НАШИ АДРЕСА",branchesTitle:"Выберите удобный филиал",branchesLead:"Адреса указаны как примеры для проекта. Перед поездкой проверьте их актуальность.",branchOneLabel:"ФИЛИАЛ 1 · ПРИМЕР",branchOneName:"Филиал на Назарбаева",branchTwoLabel:"ФИЛИАЛ 2 · ПРИМЕР",branchTwoName:"Филиал на Утепова",openMap:"Открыть карту ↗",mapNote:"Ссылка ищет адрес на карте; наличие реальных филиалов не подтверждено.",
+    reviewsEyebrow:"ОТЗЫВЫ ГОСТЕЙ",reviewsTitle:"Тёплые слова",reviewsLead:"Отзывы ниже придуманы, чтобы показать оформление сайта.",reviewsNote:"Эти отзывы не оставляли реальные пациенты.",
+    footerText:"Демонстрация учебного проекта · Реальная запись не создаётся",backTop:"Наверх ↑",authEyebrow:"ДЕМО-ВХОД",authTitle:"Добро пожаловать!",authText:"Введите имя и номер телефона, чтобы открыть демонстрационный сайт.",authSubmit:"Открыть пример <span>→</span>",authDisclaimer:"Это не настоящая авторизация. Данные не проверяются, не сохраняются и никуда не отправляются.",cookieTitle:"Настройки cookie",cookieText:"Если согласитесь, обезличенные типы действий на сайте сохранятся в cookie этого браузера. Имя и телефон не записываются.",cookieDecline:"Отклонить",cookieAccept:"Согласен",
+    docOptions:"Выберите врача",branchOptions:"Выберите филиал",timeOptions:"Сначала выберите врача и дату",selectTime:"Выберите время",closed:"В этот день врач не принимает",noSlots:"Свободного времени нет",errTime:"Выберите время приёма.",errTaken:"Это время только что заняли. Выберите другое.",success:"Демонстрационная запись готова: {date}, {time}. Информация не отправлена в клинику.",authSuccess:"Демонстрация открыта. Чтобы войти снова, нажмите «Войти».",required:"Заполните имя и номер телефона.",branchNorth:"Назарбаева 262/1",branchUtep:"Утепова 29"
   },
-  pediatrician: {
-    name: "Педиатр",
-    days: [1, 2, 3, 4, 5],
-    start: 9,
-    end: 15
+  en: {
+    demoStrip:"Educational project demo · Not a real clinic service",brandTag:"family clinic",navAbout:"About",navDoctors:"Doctors",navBranches:"Branches",navReviews:"Reviews",navBooking:"Book",login:"Sign in",languageLabel:"Language",
+    heroEyebrow:"YOUR HEALTH MATTERS TO US",heroTitle:"Care for your health<br><em>starts nearby</em>",heroText:"Choose a specialist and branch, then select a convenient appointment time.",heroCta:"Book an appointment <span>→</span>",heroDoctors:"Meet the doctors",factDoctors:"sample profiles",factBranches:"branch addresses",factLanguages:"languages",heroCardTitle:"Care at every step",heroCardText:"Choose a time that works for you",heroIllustration:"Akniyet · family medicine",
+    aboutEyebrow:"AKNIYET CLINIC",aboutTitle:"Medical care close to you",aboutLead:"Akniyet is a sample clinic website created for an educational project.",aboutCardTitle:"Everyday care",aboutCardText:"This demo page shows sample doctor profiles and an appointment flow. The information shown here is not a real medical service.",aboutBranchesTitle:"Two convenient addresses",aboutBranchesText:"Sample branches on Nazarbayev and Utepov streets.",aboutBookingTitle:"Simple booking",aboutBookingText:"Choose a specialist, date and available time. Booking works only as a demo in this browser.",fictionNotice:"Please note: doctor names, portraits, experience and reviews are fictional educational examples.",
+    doctorsEyebrow:"OUR SPECIALISTS",doctorsTitle:"Meet the doctors",doctorsLead:"The profiles below are fictional. Schedules are examples too.",sampleTag:"Sample profile",exp:"experience",choose:"Book →",
+    bookingEyebrow:"ONLINE BOOKING DEMO",bookingTitle:"Choose an appointment time",bookingText:"This form is for an educational demo. Details are not sent to a server or clinic.",stepOneTitle:"Choose a doctor and branch",stepOneText:"Select the address that suits you",stepTwoTitle:"Choose a date and time",stepTwoText:"Available slots are examples",formTitle:"Book an appointment",formSub:"Contact details are used only in this form",nameLabel:"Your name",phoneLabel:"Phone number",doctorLabel:"Doctor",branchLabel:"Branch",dateLabel:"Date",timeLabel:"Time",submitBooking:"Confirm demo booking <span>→</span>",privacyNote:"Privacy: your name and phone number are not saved or sent anywhere.",
+    branchesEyebrow:"OUR ADDRESSES",branchesTitle:"Choose a nearby branch",branchesLead:"These addresses are sample details for the project. Check them before travelling.",branchOneLabel:"BRANCH 1 · SAMPLE",branchOneName:"Nazarbayev branch",branchTwoLabel:"BRANCH 2 · SAMPLE",branchTwoName:"Utepov branch",openMap:"Open map ↗",mapNote:"The map link searches for the address; the existence of real branches is unverified.",
+    reviewsEyebrow:"GUEST REVIEWS",reviewsTitle:"Kind words",reviewsLead:"The reviews below are fictional and show sample website styling.",reviewsNote:"These reviews were not written by real patients.",
+    footerText:"Educational project demo · No real appointment is created",backTop:"Back to top ↑",authEyebrow:"DEMO SIGN-IN",authTitle:"Welcome!",authText:"Enter a name and phone number to view the demo website.",authSubmit:"Open demo <span>→</span>",authDisclaimer:"This is not real authentication. Details are not verified, saved or sent anywhere.",cookieTitle:"Cookie choices",cookieText:"If you agree, anonymous categories of site actions will be stored in this browser's cookies. Names and phone numbers are never recorded.",cookieDecline:"Decline",cookieAccept:"Agree",
+    docOptions:"Choose a doctor",branchOptions:"Choose a branch",timeOptions:"Choose a doctor and date first",selectTime:"Choose a time",closed:"This doctor is not available that day",noSlots:"No available times",errTime:"Choose an appointment time.",errTaken:"That time was just taken. Please choose another.",success:"Demo booking ready: {date}, {time}. It was not sent to the clinic.",authSuccess:"Demo opened. Click “Sign in” to open the demo gate again.",required:"Enter your name and phone number.",branchNorth:"Nazarbayev 262/1",branchUtep:"Utepov 29"
   }
 };
-
-const doctorSelect = document.querySelector("#doctor");
-const dateInput = document.querySelector("#appointment-date");
-const timeSelect = document.querySelector("#appointment-time");
-const bookingForm = document.querySelector("#booking-form");
-const formMessage = document.querySelector("#form-message");
-
-const storageKey = "clinic-reserved-times";
-
-function getReservations() {
-  try {
-    return JSON.parse(localStorage.getItem(storageKey)) || [];
-  } catch {
-    return [];
-  }
-}
-
-function setMessage(text, isError = false) {
-  formMessage.textContent = text;
-  formMessage.hidden = false;
-  formMessage.classList.toggle("error", isError);
-}
-
-function addPlaceholder(select, text) {
-  select.innerHTML = "";
-  const option = document.createElement("option");
-  option.value = "";
-  option.textContent = text;
-  select.append(option);
-}
-
-function getLocalDateString(date) {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
-}
-
-function loadDoctors() {
-  addPlaceholder(doctorSelect, "Маманды таңдаңыз");
-
-  Object.entries(doctors).forEach(([id, doctor]) => {
-    const option = document.createElement("option");
-    option.value = id;
-    option.textContent = doctor.name;
-    doctorSelect.append(option);
-  });
-
-  addPlaceholder(timeSelect, "Алдымен дәрігер мен күнді таңдаңыз");
-}
-
-function updateAvailableTimes() {
-  const doctorId = doctorSelect.value;
-  const date = dateInput.value;
-
-  addPlaceholder(timeSelect, "Бос уақытты таңдаңыз");
-
-  if (!doctorId || !date) {
-    return;
-  }
-
-  const doctor = doctors[doctorId];
-  const selectedDay = new Date(`${date}T12:00:00`).getDay();
-
-  if (!doctor.days.includes(selectedDay)) {
-    addPlaceholder(timeSelect, "Бұл күні дәрігер қабылдамайды");
-    return;
-  }
-
-  const reservations = getReservations();
-  let availableCount = 0;
-
-  for (let hour = doctor.start; hour < doctor.end; hour += 1) {
-    for (const minute of [0, 30]) {
-      const time = `${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}`;
-      const alreadyReserved = reservations.some(
-        (item) =>
-          item.doctor === doctorId &&
-          item.date === date &&
-          item.time === time
-      );
-
-      if (!alreadyReserved) {
-        const option = document.createElement("option");
-        option.value = time;
-        option.textContent = time;
-        timeSelect.append(option);
-        availableCount += 1;
-      }
-    }
-  }
-
-  if (availableCount === 0) {
-    addPlaceholder(timeSelect, "Бос уақыт жоқ");
-  }
-}
-
-dateInput.min = getLocalDateString(new Date());
-loadDoctors();
-
-doctorSelect.addEventListener("change", updateAvailableTimes);
-dateInput.addEventListener("change", updateAvailableTimes);
-
-document.querySelectorAll(".choose-doctor").forEach((button) => {
-  button.addEventListener("click", () => {
-    doctorSelect.value = button.dataset.doctor;
-    updateAvailableTimes();
-    document.querySelector("#booking").scrollIntoView({ behavior: "smooth" });
-  });
-});
-
-bookingForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-
-  if (!bookingForm.reportValidity()) {
-    return;
-  }
-
-  const doctor = doctorSelect.value;
-  const date = dateInput.value;
-  const time = timeSelect.value;
-
-  if (!time) {
-    setMessage("Қабылдау уақытын таңдаңыз.", true);
-    return;
-  }
-
-  const reservations = getReservations();
-  const alreadyReserved = reservations.some(
-    (item) =>
-      item.doctor === doctor &&
-      item.date === date &&
-      item.time === time
-  );
-
-  if (alreadyReserved) {
-    setMessage("Бұл уақыт бос емес. Басқа уақытты таңдаңыз.", true);
-    updateAvailableTimes();
-    return;
-  }
-
-  reservations.push({ doctor, date, time });
-  localStorage.setItem(storageKey, JSON.stringify(reservations));
-
-  const doctorName = doctors[doctor].name;
-  setMessage(
-    `Үлгі жазылу сақталды: ${date}, ${time}, ${doctorName}. Бұл дерек емханаға жіберілген жоқ.`
-  );
-
-  updateAvailableTimes();
-});
+const doctors = [
+  {id:"aidos",name:"Айдос Халило Серікұлы",specialty:{kk:"Терапевт",ru:"Терапевт",en:"General practitioner"},about:{kk:"Ересектерге алғашқы медициналық кеңес",ru:"Первичная консультация для взрослых",en:"Primary care consultations for adults"},exp:8,days:[1,2,3,4,5],start:9,end:17,branch:0,gender:"m",bg:"#e2f3ed"},
+  {id:"ainur",name:"Айнұр Қасымова Ерланқызы",specialty:{kk:"Педиатр",ru:"Педиатр",en:"Pediatrician"},about:{kk:"Балалар денсаулығы және профилактика",ru:"Здоровье детей и профилактика",en:"Children’s health and prevention"},exp:7,days:[1,2,3,4,5],start:9,end:16,branch:1,gender:"f",bg:"#fff0e8"},
+  {id:"dias",name:"Диас Мұратов Болатұлы",specialty:{kk:"Кардиолог",ru:"Кардиолог",en:"Cardiologist"},about:{kk:"Жүрек пен қан тамырларын бақылау",ru:"Забота о сердце и сосудах",en:"Heart and vascular care"},exp:10,days:[1,2,3,4],start:10,end:17,branch:0,gender:"m",bg:"#eeeafb"},
+  {id:"madina",name:"Мәдина Оразбаева Нұрланқызы",specialty:{kk:"Невролог",ru:"Невролог",en:"Neurologist"},about:{kk:"Жүйке жүйесі бойынша кеңес",ru:"Консультации по нервной системе",en:"Neurological consultations"},exp:6,days:[1,2,3,4,5],start:9,end:15,branch:1,gender:"f",bg:"#e8effb"},
+  {id:"timur",name:"Тимур Әлиев Қанатұлы",specialty:{kk:"Ортопед",ru:"Ортопед",en:"Orthopedist"},about:{kk:"Қимыл-қозғалыс жүйесін бағалау",ru:"Оценка опорно-двигательной системы",en:"Musculoskeletal assessments"},exp:9,days:[1,2,3,5],start:10,end:16,branch:0,gender:"m",bg:"#e7f4f4"},
+  {id:"zhanna",name:"Жанна Сейітова Маратқызы",specialty:{kk:"Дерматолог",ru:"Дерматолог",en:"Dermatologist"},about:{kk:"Тері саулығы және күтім кеңестері",ru:"Здоровье кожи и рекомендации по уходу",en:"Skin health and care advice"},exp:5,days:[2,3,4,5],start:9,end:16,branch:1,gender:"f",bg:"#f9e9ef"},
+  {id:"ruslan",name:"Руслан Бекенов Талғатұлы",specialty:{kk:"Оториноларинголог",ru:"Оториноларинголог",en:"ENT specialist"},about:{kk:"Құлақ, мұрын, тамақ бойынша кеңес",ru:"Консультации по ЛОР-направлению",en:"Ear, nose and throat consultations"},exp:11,days:[1,2,3,4,5],start:9,end:16,branch:0,gender:"m",bg:"#e8f0e4"},
+  {id:"aliya",name:"Әлия Нұрғазина Саматқызы",specialty:{kk:"Эндокринолог",ru:"Эндокринолог",en:"Endocrinologist"},about:{kk:"Гормондық саулықты бақылау",ru:"Консультации по эндокринному здоровью",en:"Endocrine health consultations"},exp:8,days:[1,2,4,5],start:10,end:17,branch:1,gender:"f",bg:"#fff2dc"},
+  {id:"marat",name:"Марат Жұмабеков Ермекұлы",specialty:{kk:"Уролог",ru:"Уролог",en:"Urologist"},about:{kk:"Ересектерге урологиялық кеңес",ru:"Урологические консультации для взрослых",en:"Urology consultations for adults"},exp:12,days:[1,3,4,5],start:9,end:15,branch:0,gender:"m",bg:"#e4eff8"},
+  {id:"kamila",name:"Кәмилә Төлегенова Әсетқызы",specialty:{kk:"Гинеколог",ru:"Гинеколог",en:"Gynecologist"},about:{kk:"Әйелдер денсаулығы бойынша кеңес",ru:"Консультации по женскому здоровью",en:"Women’s health consultations"},exp:7,days:[1,2,3,4,5],start:9,end:16,branch:1,gender:"f",bg:"#f6e9f1"}
+];
+const reviews=[
+ {name:"Айдана",initial:"А",text:{kk:"Қабылдау уақытын таңдау өте түсінікті екен. Сайттың үлгісі ұнады.",ru:"Выбрать время приёма было очень просто. Мне понравился пример сайта.",en:"Choosing an appointment time was straightforward. I liked the website demo."}},
+ {name:"Нұрбек",initial:"Н",text:{kk:"Дәрігерлер туралы ақпарат бір жерде жиналғаны ыңғайлы.",ru:"Удобно, что информация о врачах собрана в одном месте.",en:"It is convenient to have the doctor information gathered in one place."}},
+ {name:"Әсем",initial:"Ә",text:{kk:"Тіл ауыстырғышы мен мекенжай бөлімін табу оңай болды.",ru:"Переключатель языка и адреса легко найти.",en:"The language switcher and address section were easy to find."}}
+];
+const branches=[{id:"naz",labelKey:"branchNorth"},{id:"utep",labelKey:"branchUtep"}];
+const dayNames={kk:["жс","дс","сс","ср","бс","жм","сб"],ru:["вс","пн","вт","ср","чт","пт","сб"],en:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]};
+let language=localStorage.getItem("clinic-language");
+if(!["kk","ru","en"].includes(language)) language="kk";
+const $=selector=>document.querySelector(selector);
+const doctorSelect=$("#doctor"),branchSelect=$("#branch"),dateInput=$("#appointment-date"),timeSelect=$("#appointment-time");
+const bookingForm=$("#booking-form"),formMessage=$("#form-message"),authBackdrop=$("#auth-backdrop");
+function t(key){return translations[language][key]||key}
+function doctorAvatar(gender){return gender==="m"?'<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="22" r="12" fill="#d99d78"/><path d="M20 21c1-12 21-17 25-2l-2 7c-4-4-12-5-22-2z" fill="#3a3633"/><path d="M11 62c1-14 10-22 21-22s20 8 21 22" fill="#fff"/><path d="M26 42l6 8 6-8 5 3-5 17H26l-5-17z" fill="#2c8b7d"/><path d="M30 50h4l2 12h-8z" fill="#d99d78"/></svg>':'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M17 26c-3-15 4-23 16-23s19 8 16 24l-5 9H21z" fill="#4a3e3a"/><circle cx="32" cy="24" r="12" fill="#e5ad8c"/><path d="M20 22c2-12 21-15 25-2-8-4-16-4-25 2" fill="#4a3e3a"/><path d="M11 62c1-14 10-22 21-22s20 8 21 22" fill="#fff"/><path d="M26 42l6 8 6-8 5 3-5 17H26l-5-17z" fill="#c87983"/><path d="M30 50h4l2 12h-8z" fill="#e5ad8c"/></svg>'}
+function renderDoctors(){const grid=$("#doctor-grid");grid.innerHTML="";doctors.forEach((doctor,index)=>{const card=document.createElement("article");card.className="doctor-card";card.innerHTML='<div class="doctor-card-top"><div class="doctor-avatar" style="--avatar-bg:'+doctor.bg+'">'+doctorAvatar(doctor.gender)+'</div><span class="sample-tag">'+t("sampleTag")+'</span></div><span class="specialty">'+doctor.specialty[language]+'</span><div class="doctor-info"><h3>'+doctor.name+'</h3><p>'+doctor.about[language]+'</p></div><div class="doctor-details"><span>✦ '+doctor.exp+' '+t("exp")+'</span><span>⌖ '+t(branches[doctor.branch].labelKey)+'</span></div><div class="doctor-bottom"><span class="doctor-hours">'+t("hours")+': '+formatDays(doctor.days)+' · '+pad(doctor.start)+':00–'+pad(doctor.end)+':00</span><button class="choose-doctor" type="button" data-doctor="'+doctor.id+'">'+t("choose")+'</button></div>';grid.append(card)});grid.querySelectorAll(".choose-doctor").forEach(button=>button.addEventListener("click",()=>{doctorSelect.value=button.dataset.doctor;updateAvailableTimes();$("#booking").scrollIntoView({behavior:"smooth"});trackAction("doctor_select")}))}
+function formatDays(days){return days.map(day=>dayNames[language][day]).join(", ")}
+function pad(value){return String(value).padStart(2,"0")}
+function renderReviews(){const grid=$("#review-grid");grid.innerHTML="";reviews.forEach(review=>{const card=document.createElement("article");card.className="review-card";card.innerHTML='<div class="review-stars" aria-label="5 stars">★★★★★</div><blockquote>“'+review.text[language]+'”</blockquote><div class="review-author"><span class="review-initial">'+review.initial+'</span><span><b>'+review.name+'</b><small>'+t("sampleTag")+'</small></span></div>';grid.append(card)})}
+function renderOptions(){doctorSelect.innerHTML='<option value="">'+t("docOptions")+'</option>';doctors.forEach(d=>doctorSelect.add(new Option(d.name,d.id)));branchSelect.innerHTML='<option value="">'+t("branchOptions")+'</option>';branches.forEach(b=>branchSelect.add(new Option(t(b.labelKey),b.id)));timeSelect.innerHTML='<option value="">'+t("timeOptions")+'</option>'}
+function setLanguage(next){language=next;localStorage.setItem("clinic-language",language);document.documentElement.lang=language;$("#language-select").value=language;document.querySelectorAll("[data-i18n]").forEach(el=>{const value=t(el.dataset.i18n);if(el.children.length&&value.includes("<span>"))el.innerHTML=value;else el.textContent=value});renderDoctors();renderReviews();const prevDoctor=doctorSelect.value,prevBranch=branchSelect.value;renderOptions();if(doctors.some(d=>d.id===prevDoctor))doctorSelect.value=prevDoctor;if(branches.some(b=>b.id===prevBranch))branchSelect.value=prevBranch;updateAvailableTimes();$("#menu-toggle").setAttribute("aria-label",language==="kk"?"Мәзірді ашу":language==="ru"?"Открыть меню":"Open menu")}
+function addPlaceholder(select,text){select.innerHTML="";select.add(new Option(text,""))}
+function localDate(date){return date.getFullYear()+"-"+pad(date.getMonth()+1)+"-"+pad(date.getDate())}
+function getReservations(){try{return JSON.parse(sessionStorage.getItem("clinic-demo-slots")||"[]")}catch{return []}}
+function updateAvailableTimes(){if(!doctorSelect.value||!dateInput.value){addPlaceholder(timeSelect,t("timeOptions"));return}const doctor=doctors.find(d=>d.id===doctorSelect.value);const selectedDay=new Date(dateInput.value+"T12:00:00").getDay();addPlaceholder(timeSelect,t("selectTime"));if(!doctor.days.includes(selectedDay)){addPlaceholder(timeSelect,t("closed"));return}let count=0;const reserved=getReservations();for(let hour=doctor.start;hour<doctor.end;hour++){for(const minute of [0,30]){const value=pad(hour)+":"+pad(minute);if(!reserved.some(item=>item.doctor===doctor.id&&item.branch===branchSelect.value&&item.date===dateInput.value&&item.time===value)){timeSelect.add(new Option(value,value));count++}}}if(!count)addPlaceholder(timeSelect,t("noSlots"))}
+dateInput.min=localDate(new Date());
+doctorSelect.addEventListener("change",()=>{updateAvailableTimes();trackAction("doctor_select")});branchSelect.addEventListener("change",()=>{updateAvailableTimes();trackAction("branch_select")});dateInput.addEventListener("change",()=>{updateAvailableTimes();trackAction("date_select")});
+bookingForm.addEventListener("submit",event=>{event.preventDefault();if(!bookingForm.reportValidity())return;const doctor=doctorSelect.value,date=dateInput.value,time=timeSelect.value,branch=branchSelect.value;if(!time){showMessage(t("errTime"),true);return}const slots=getReservations();if(slots.some(item=>item.doctor===doctor&&item.branch===branch&&item.date===date&&item.time===time)){showMessage(t("errTaken"),true);updateAvailableTimes();return}slots.push({doctor,branch,date,time});sessionStorage.setItem("clinic-demo-slots",JSON.stringify(slots));const message=t("success").replace("{date}",date).replace("{time}",time);showMessage(message);trackAction("demo_booking");bookingForm.reset();dateInput.min=localDate(new Date());updateAvailableTimes()});
+function showMessage(message,error=false){formMessage.textContent=message;formMessage.hidden=false;formMessage.classList.toggle("error",error)}
+const loginKey="clinic-demo-auth";
+function openAuth(){authBackdrop.hidden=false;document.body.classList.add("modal-open");$("#auth-name").focus()}
+function closeAuth(){authBackdrop.hidden=true;document.body.classList.remove("modal-open")}
+$("#auth-form").addEventListener("submit",event=>{event.preventDefault();if(!event.currentTarget.reportValidity())return;sessionStorage.setItem(loginKey,"yes");closeAuth();$("#open-auth").textContent=t("authSuccess");event.currentTarget.reset()});
+$("#open-auth").addEventListener("click",()=>{sessionStorage.removeItem(loginKey);openAuth()});
+$("#close-auth").addEventListener("click",()=>{closeAuth();trackAction("auth_close")});
+authBackdrop.addEventListener("click",event=>{if(event.target===authBackdrop&&sessionStorage.getItem(loginKey)==="yes")closeAuth()});
+document.addEventListener("keydown",event=>{if(event.key==="Escape"&&sessionStorage.getItem(loginKey)==="yes")closeAuth()});
+if(sessionStorage.getItem(loginKey)!=="yes")openAuth();else $("#open-auth").textContent=t("authSuccess");
+$("#language-select").addEventListener("change",event=>{setLanguage(event.target.value);trackAction("language_change")});
+$("#menu-toggle").addEventListener("click",event=>{const open=$("#menu-toggle").getAttribute("aria-expanded")!=="true";$("#menu-toggle").setAttribute("aria-expanded",String(open));$(".main-nav").classList.toggle("open",open)});
+document.querySelectorAll(".main-nav a").forEach(link=>link.addEventListener("click",()=>$(".main-nav").classList.remove("open")));
+function cookie(name){return document.cookie.split("; ").find(row=>row.startsWith(name+"="))?.split("=")[1]||""}
+function setCookie(name,value,days){document.cookie=name+"="+encodeURIComponent(value)+"; Max-Age="+days*86400+"; Path=/; SameSite=Lax"}
+function trackAction(type){if(cookie("clinic_consent")!=="yes")return;let actions=[];try{actions=JSON.parse(decodeURIComponent(cookie("clinic_actions"))||"[]")}catch{}actions.push({type,day:new Date().toISOString().slice(0,10)});setCookie("clinic_actions",JSON.stringify(actions.slice(-20)),30)}
+const banner=$("#cookie-banner");
+if(!cookie("clinic_consent"))banner.hidden=false;
+$("#cookie-accept").addEventListener("click",()=>{setCookie("clinic_consent","yes",180);banner.hidden=true;trackAction("cookie_consent")});
+$("#cookie-decline").addEventListener("click",()=>{setCookie("clinic_consent","no",180);document.cookie="clinic_actions=; Max-Age=0; Path=/; SameSite=Lax";banner.hidden=true});
+$("#language-select").value=language;
+const t0=translations.kk;
+translations.kk.hours="Қабылдау";translations.ru.hours="Приём";translations.en.hours="Hours";
+setLanguage(language);

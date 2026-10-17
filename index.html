@@ -3,106 +3,107 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Дәрігерлер кестесін қарап, емханаға қабылдауға жазылыңыз.">
-  <title>Емханаға жазылу</title>
+  <meta name="description" content="Ақниет емханасының дәрігерлері, филиалдары және қабылдауға жазылу үлгісі.">
+  <meta name="theme-color" content="#087f73">
+  <title>Ақниет — емханаға жазылу</title>
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
 <body>
+  <div class="demo-strip" data-i18n="demoStrip">Оқу жобасының демонстрациялық үлгісі · Нақты емхана қызметі емес</div>
   <header class="site-header">
-    <a class="brand" href="#home" aria-label="Емхана басты беті">
-      <span class="brand-mark" aria-hidden="true">+</span>
-      <span>Ақниет <small>отбасылық емханасы</small></span>
+    <a class="brand" href="#home" aria-label="Ақниет — басты бет">
+      <span class="brand-mark" aria-hidden="true">✚</span>
+      <span>Ақниет<small data-i18n="brandTag">отбасылық емханасы</small></span>
     </a>
-    <nav aria-label="Негізгі мәзір">
-      <a href="#doctors">Дәрігерлер</a>
-      <a href="#schedule">Кесте</a>
-      <a class="nav-button" href="#booking">Қабылдауға жазылу</a>
+    <nav class="main-nav" aria-label="Негізгі мәзір">
+      <a href="#about" data-i18n="navAbout">Емхана туралы</a>
+      <a href="#doctors" data-i18n="navDoctors">Дәрігерлер</a>
+      <a href="#branches" data-i18n="navBranches">Филиалдар</a>
+      <a href="#reviews" data-i18n="navReviews">Пікірлер</a>
+      <a class="nav-cta" href="#booking" data-i18n="navBooking">Жазылу</a>
     </nav>
+    <div class="header-actions">
+      <label class="language-picker"><span class="sr-only" data-i18n="languageLabel">Тіл</span>
+        <select id="language-select" aria-label="Тілді таңдау">
+          <option value="kk">ҚАЗ</option><option value="ru">РУС</option><option value="en">ENG</option>
+        </select>
+      </label>
+      <button class="login-link" id="open-auth" type="button" data-i18n="login">Кіру</button>
+      <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Мәзірді ашу" aria-expanded="false">☰</button>
+    </div>
   </header>
 
   <main>
     <section class="hero" id="home">
       <div class="hero-copy">
-        <p class="eyebrow"><span></span> Сіздің денсаулығыңыз — басты назарда</p>
-        <h1>Дәрігерге жазылу<br><em>оңай әрі ыңғайлы</em></h1>
-        <p class="hero-text">Маман таңдаңыз, бос уақытты белгілеңіз — қабылдауыңызды бірнеше қадамда жоспарлаңыз.</p>
-        <a class="primary-button" href="#booking">Қабылдауға жазылу <span aria-hidden="true">↗</span></a>
-        <div class="hero-note"><span aria-hidden="true">✓</span> Ыңғайлы уақытты өзіңіз таңдаңыз</div>
+        <p class="eyebrow"><span class="live-dot"></span><span data-i18n="heroEyebrow">СІЗДІҢ ДЕНСАУЛЫҒЫҢЫЗ — БІЗ ҮШІН МАҢЫЗДЫ</span></p>
+        <h1 data-i18n="heroTitle">Денсаулыққа қамқорлық<br><em>жақыннан басталады</em></h1>
+        <p class="hero-text" data-i18n="heroText">Маман мен филиалды таңдап, өзіңізге ыңғайлы қабылдау уақытын белгілеңіз.</p>
+        <div class="hero-actions"><a class="button button-primary" href="#booking" data-i18n="heroCta">Қабылдауға жазылу <span>→</span></a><a class="button button-quiet" href="#doctors" data-i18n="heroDoctors">Дәрігерлерді көру</a></div>
+        <div class="hero-facts"><span><b>10</b><small data-i18n="factDoctors">маман профилі</small></span><i></i><span><b>2</b><small data-i18n="factBranches">филиал мекенжайы</small></span><i></i><span><b>3</b><small data-i18n="factLanguages">тіл нұсқасы</small></span></div>
       </div>
-      <div class="hero-card" aria-label="Емхана туралы">
-        <div class="card-glow"></div>
-        <div class="medical-cross" aria-hidden="true">+</div>
-        <div class="hero-card-content">
-          <span class="card-label">Қамқорлық күн сайын</span>
-          <strong>Денсаулығыңызға<br>уақыт бөліңіз</strong>
-          <span class="card-caption">Өзіңізге жақын маманды таңдаңыз</span>
-        </div>
-        <div class="hero-card-footer"><span class="online-dot"></span> Қабылдау кестесі қолжетімді</div>
+      <div class="hero-visual" aria-label="Емханаға арналған иллюстрация">
+        <div class="hero-orbit orbit-one"></div><div class="hero-orbit orbit-two"></div>
+        <div class="hero-cross">+</div><div class="hero-card-note"><span class="note-icon">♡</span><span><b data-i18n="heroCardTitle">Қамқорлық әр қадамда</b><small data-i18n="heroCardText">Өзіңізге ыңғайлы уақытты таңдаңыз</small></span></div>
+        <div class="hero-sticker">✳</div><div class="hero-caption" data-i18n="heroIllustration">Ақниет · отбасылық медицина</div>
       </div>
+    </section>
+
+    <section class="section about-section" id="about">
+      <div class="section-heading"><div><p class="eyebrow" data-i18n="aboutEyebrow">АҚНИЕТ ЕМХАНАСЫ</p><h2 data-i18n="aboutTitle">Сізге жақын медициналық көмек</h2></div><p data-i18n="aboutLead">Ақниет — оқу жобасы үшін жасалған емхана сайтының үлгісі.</p></div>
+      <div class="about-grid">
+        <article class="about-card about-main"><span class="about-symbol">✚</span><h3 data-i18n="aboutCardTitle">Күнделікті қамқорлық</h3><p data-i18n="aboutCardText">Бұл демонстрациялық бет дәрігерлерді қарау мен қабылдауға жазылу жолын көрсету үшін жасалды. Мұнда көрсетілген деректер нақты медициналық қызметке жатпайды.</p></article>
+        <article class="about-card"><span class="mini-icon">⌖</span><h3 data-i18n="aboutBranchesTitle">Екі ыңғайлы мекенжай</h3><p data-i18n="aboutBranchesText">Назарбаева және Өтепова көшелеріндегі үлгі филиалдар.</p></article>
+        <article class="about-card"><span class="mini-icon">◷</span><h3 data-i18n="aboutBookingTitle">Қарапайым жазылу</h3><p data-i18n="aboutBookingText">Маман, күн мен бос уақытты таңдаңыз. Жазылу тек осы браузердегі демонстрация ретінде жұмыс істейді.</p></article>
+      </div>
+      <p class="fiction-note" data-i18n="fictionNotice">Ескерту: дәрігерлердің аты-жөні, бейнелері, тәжірибесі және пікірлер — ойдан шығарылған оқу үлгілері.</p>
     </section>
 
     <section class="section doctors-section" id="doctors">
-      <div class="section-heading">
-        <div><p class="eyebrow">БІЗДІҢ МАМАНДАР</p><h2>Дәрігерді таңдаңыз</h2></div>
-        <p>Әр маманның қабылдау уақытын қарап, өзіңізге ыңғайлысын белгілеңіз.</p>
-      </div>
-      <div class="doctor-grid">
-        <article class="doctor-card">
-          <div class="doctor-avatar avatar-mint" aria-hidden="true">Т</div>
-          <div class="doctor-info"><span class="specialty">ЖАЛПЫ МАМАН</span><h3>Терапевт</h3><p>Ересектердің жалпы денсаулығы</p></div>
-          <div class="doctor-schedule"><span>Дс – Жм</span><strong>09:00 – 17:00</strong></div>
-          <button class="choose-doctor" type="button" data-doctor="therapist">Таңдау <span aria-hidden="true">→</span></button>
-        </article>
-        <article class="doctor-card">
-          <div class="doctor-avatar avatar-lilac" aria-hidden="true">К</div>
-          <div class="doctor-info"><span class="specialty">ЖҮРЕК ДЕНСАУЛЫҒЫ</span><h3>Кардиолог</h3><p>Жүрек пен қан тамырлары</p></div>
-          <div class="doctor-schedule"><span>Дс – Бс</span><strong>10:00 – 16:00</strong></div>
-          <button class="choose-doctor" type="button" data-doctor="cardiologist">Таңдау <span aria-hidden="true">→</span></button>
-        </article>
-        <article class="doctor-card">
-          <div class="doctor-avatar avatar-peach" aria-hidden="true">П</div>
-          <div class="doctor-info"><span class="specialty">БАЛАЛАР ДЕНСАУЛЫҒЫ</span><h3>Педиатр</h3><p>Балаларға профилактикалық көмек</p></div>
-          <div class="doctor-schedule"><span>Дс – Жм</span><strong>09:00 – 15:00</strong></div>
-          <button class="choose-doctor" type="button" data-doctor="pediatrician">Таңдау <span aria-hidden="true">→</span></button>
-        </article>
-      </div>
+      <div class="section-heading"><div><p class="eyebrow" data-i18n="doctorsEyebrow">БІЗДІҢ МАМАНДАР</p><h2 data-i18n="doctorsTitle">Дәрігерлермен танысыңыз</h2></div><p data-i18n="doctorsLead">Төмендегі профильдер ойдан шығарылған мысалдар. Қабылдау уақыты да үлгі.</p></div>
+      <div class="doctor-grid" id="doctor-grid"></div>
     </section>
 
     <section class="booking-section" id="booking">
-      <div class="booking-intro">
-        <p class="eyebrow">ҚАБЫЛДАУҒА ЖАЗЫЛУ</p>
-        <h2>Өзіңізге қолайлы<br>уақытты белгілеңіз</h2>
-        <p>Форманы толтырыңыз. Таңдалған қабылдау уақыты осы бетте көрсетіледі.</p>
-        <div class="booking-step"><span>01</span><div><strong>Маман мен күнді таңдаңыз</strong><small>Кестеден бос уақытты белгілеңіз</small></div></div>
-        <div class="booking-step"><span>02</span><div><strong>Байланыс дерегін енгізіңіз</strong><small>Атыңыз бен телефон нөміріңіз жеткілікті</small></div></div>
-      </div>
+      <div class="booking-intro"><p class="eyebrow" data-i18n="bookingEyebrow">ОНЛАЙН ЖАЗЫЛУ ҮЛГІСІ</p><h2 data-i18n="bookingTitle">Қабылдау уақытын таңдаңыз</h2><p data-i18n="bookingText">Бұл форма оқу демонстрациясы үшін. Мәліметтер серверге немесе емханаға жіберілмейді.</p><div class="booking-step"><span>01</span><div><b data-i18n="stepOneTitle">Маман мен филиалды таңдаңыз</b><small data-i18n="stepOneText">Сізге қолайлы мекенжайды белгілеңіз</small></div></div><div class="booking-step"><span>02</span><div><b data-i18n="stepTwoTitle">Күн мен бос уақытты таңдаңыз</b><small data-i18n="stepTwoText">Бос слоттар үлгі ретінде көрсетіледі</small></div></div></div>
       <form class="booking-form" id="booking-form">
-        <div class="form-heading"><div><h3>Қабылдауға жазылу</h3><p>Барлық өрістерді толтырыңыз</p></div><span class="form-icon" aria-hidden="true">✳</span></div>
-        <label for="patient-name">Аты-жөніңіз</label>
-        <input id="patient-name" name="name" type="text" placeholder="Мысалы, Айдана Нұрланқызы" autocomplete="name" required>
-        <label for="patient-phone">Телефон нөмірі</label>
-        <input id="patient-phone" name="phone" type="tel" placeholder="+7 700 000 00 00" autocomplete="tel" required>
-        <div class="form-row">
-          <div><label for="doctor">Дәрігер</label><select id="doctor" name="doctor" required></select></div>
-          <div><label for="appointment-date">Қабылдау күні</label><input id="appointment-date" name="date" type="date" required></div>
-        </div>
-        <label for="appointment-time">Бос уақыт</label>
-        <select id="appointment-time" name="time" required></select>
-        <button class="primary-button submit-button" type="submit">Жазылуды растау <span aria-hidden="true">→</span></button>
-        <p class="privacy-note"><span aria-hidden="true">▣</span> Деректеріңіз бұл үлгі беттен ешқайда жіберілмейді.</p>
+        <div class="form-heading"><div><h3 data-i18n="formTitle">Қабылдауға жазылу</h3><p data-i18n="formSub">Байланыс деректері тек осы формада қолданылады</p></div><span class="form-icon">✳</span></div>
+        <label for="patient-name" data-i18n="nameLabel">Аты-жөніңіз</label><input id="patient-name" name="name" type="text" placeholder="Мысалы, Айдана Нұрланқызы" autocomplete="name" maxlength="80" required>
+        <label for="patient-phone" data-i18n="phoneLabel">Телефон нөмірі</label><input id="patient-phone" name="phone" type="tel" placeholder="+7 700 000 00 00" autocomplete="tel" inputmode="tel" required>
+        <div class="form-row"><div><label for="doctor" data-i18n="doctorLabel">Дәрігер</label><select id="doctor" name="doctor" required></select></div><div><label for="branch" data-i18n="branchLabel">Филиал</label><select id="branch" name="branch" required></select></div></div>
+        <div class="form-row"><div><label for="appointment-date" data-i18n="dateLabel">Күні</label><input id="appointment-date" name="date" type="date" required></div><div><label for="appointment-time" data-i18n="timeLabel">Уақыты</label><select id="appointment-time" name="time" required></select></div></div>
+        <button class="button button-primary submit-button" type="submit" data-i18n="submitBooking">Үлгі жазылуды растау <span>→</span></button>
+        <p class="privacy-note" data-i18n="privacyNote">Қауіпсіздік: аты-жөніңіз бен телефон нөміріңіз сақталмайды және жіберілмейді.</p>
         <div class="form-message" id="form-message" role="status" aria-live="polite" hidden></div>
       </form>
     </section>
 
-    <section class="schedule-section section" id="schedule">
-      <div class="schedule-icon" aria-hidden="true">◷</div>
-      <div><p class="eyebrow">ҮЛГІ ҚАБЫЛДАУ КЕСТЕСІ</p><h2>Дүйсенбі – жұма</h2><p>Дәрігерлердің жеке қабылдау уақыты әртүрлі. Нақты уақытты жазылу формасынан таңдаңыз.</p></div>
-      <a href="#booking" class="text-link">Уақыт таңдау <span aria-hidden="true">→</span></a>
+    <section class="section branches-section" id="branches">
+      <div class="section-heading"><div><p class="eyebrow" data-i18n="branchesEyebrow">БІЗДІҢ МЕКЕНЖАЙЛАР</p><h2 data-i18n="branchesTitle">Өзіңізге жақын филиал</h2></div><p data-i18n="branchesLead">Көрсетілген мекенжайлар жобада сұралған мысалдар. Бармас бұрын нақты мекенжайды тексеріңіз.</p></div>
+      <div class="branch-grid">
+        <article class="branch-card"><div class="branch-art branch-art-one"><span>⌖</span><small>01</small></div><div class="branch-content"><span class="branch-label" data-i18n="branchOneLabel">1-ФИЛИАЛ · ҮЛГІ</span><h3 data-i18n="branchOneName">Назарбаева филиалы</h3><p class="branch-address">Назарбаева 262/1</p><a href="https://maps.google.com/?q=Nazarbayev+262%2F1+Almaty" target="_blank" rel="noopener noreferrer" data-i18n="openMap">Картадан ашу ↗</a></div></article>
+        <article class="branch-card"><div class="branch-art branch-art-two"><span>⌖</span><small>02</small></div><div class="branch-content"><span class="branch-label" data-i18n="branchTwoLabel">2-ФИЛИАЛ · ҮЛГІ</span><h3 data-i18n="branchTwoName">Өтепова филиалы</h3><p class="branch-address">Өтепова 29</p><a href="https://maps.google.com/?q=Utepova+29+Almaty" target="_blank" rel="noopener noreferrer" data-i18n="openMap">Картадан ашу ↗</a></div></article>
+      </div>
+      <p class="map-note" data-i18n="mapNote">Карта сілтемесі мекенжайды іздейді; филиалдардың нақты бар екені расталмаған.</p>
+    </section>
+
+    <section class="section reviews-section" id="reviews">
+      <div class="section-heading"><div><p class="eyebrow" data-i18n="reviewsEyebrow">ҚОНАҚТАРДЫҢ ПІКІРІ</p><h2 data-i18n="reviewsTitle">Жылы сөздер</h2></div><p data-i18n="reviewsLead">Төмендегі пікірлер сайт көрінісін көрсету үшін ойдан жазылған.</p></div>
+      <div class="review-grid" id="review-grid"></div><p class="fiction-note" data-i18n="reviewsNote">Бұл пікірлер нақты пациенттерден алынбаған.</p>
     </section>
   </main>
 
-  <footer class="site-footer"><a class="brand footer-brand" href="#home"><span class="brand-mark" aria-hidden="true">+</span><span>Ақниет <small>отбасылық емханасы</small></span></a><p>Оқу жобасының үлгі беті · Қабылдау нақты тіркелмейді</p></footer>
+  <footer class="site-footer"><a class="brand" href="#home"><span class="brand-mark">✚</span><span>Ақниет<small data-i18n="brandTag">отбасылық емханасы</small></span></a><p data-i18n="footerText">Оқу жобасының демонстрациясы · Нақты қабылдау тіркелмейді</p><a href="#home" class="back-top" data-i18n="backTop">Жоғары ↑</a></footer>
+
+  <div class="auth-backdrop" id="auth-backdrop" hidden>
+    <section class="auth-dialog" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+      <button class="dialog-close" id="close-auth" type="button" aria-label="Жабу">×</button><span class="auth-mark">✚</span><p class="eyebrow" data-i18n="authEyebrow">ДЕМОНСТРАЦИЯЛЫҚ КІРУ</p><h2 id="auth-title" data-i18n="authTitle">Қош келдіңіз!</h2><p data-i18n="authText">Үлгі сайтты көру үшін аты-жөніңіз бен телефон нөміріңізді енгізіңіз.</p>
+      <form id="auth-form"><label for="auth-name" data-i18n="nameLabel">Аты-жөніңіз</label><input id="auth-name" name="name" type="text" maxlength="80" autocomplete="name" required><label for="auth-phone" data-i18n="phoneLabel">Телефон нөмірі</label><input id="auth-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required><button class="button button-primary submit-button" type="submit" data-i18n="authSubmit">Үлгіні ашу <span>→</span></button></form>
+      <p class="auth-disclaimer" data-i18n="authDisclaimer">Бұл шынайы авторизация емес. Енгізілген деректер тексерілмейді, сақталмайды және ешқайда жіберілмейді.</p>
+    </section>
+  </div>
+
+  <aside class="cookie-banner" id="cookie-banner" aria-label="Cookie таңдауы" hidden><div><b data-i18n="cookieTitle">Cookie таңдауы</b><p data-i18n="cookieText">Келіссеңіз, сайт әрекеттерінің дерексіз түрлері осы браузердегі cookie-де сақталады. Аты-жөн мен телефон жазылмайды.</p></div><div class="cookie-actions"><button class="button button-quiet" id="cookie-decline" type="button" data-i18n="cookieDecline">Қабылдамау</button><button class="button button-primary" id="cookie-accept" type="button" data-i18n="cookieAccept">Келісемін</button></div></aside>
 </body>
 </html>
-
