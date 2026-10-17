@@ -117,6 +117,24 @@ Object.assign(translations.en,{
  assistantUnknown:"I couldn't find specific information for that question. Try asking about the clinic, doctors, appointments, locations or prices.",
  bookingNoName:"To book, select a doctor, branch, date and time. No name or phone number is required."
 });
+Object.assign(translations.kk,{
+ bookingEyebrow:"ҚАБЫЛДАУҒА ЖАЗЫЛУ",bookingText:"Өзіңізге ыңғайлы маман мен уақытты таңдаңыз. Таңдау тек осы браузерде белгіленеді.",
+ formSub:"Дәрігер, филиал, күн және уақытты таңдаңыз.",stepTwoText:"Кестедегі бос уақытты таңдаңыз.",submitBooking:"Уақытты белгілеу <span>→</span>",
+ success:"Таңдалған уақыт: {date}, {time}. Ол осы браузерде белгіленді, клиникаға өтінім жіберілген жоқ.",
+ aboutCardText:"Ақниет сайты дәрігерлер, филиалдар және қабылдауды жоспарлау туралы ақпаратты бір жерге жинайды."
+});
+Object.assign(translations.ru,{
+ bookingEyebrow:"ЗАПИСЬ НА ПРИЁМ",bookingText:"Выберите удобного специалиста и время. Выбор отмечается только в этом браузере.",
+ formSub:"Выберите врача, филиал, дату и время.",stepTwoText:"Выберите свободное время в расписании.",submitBooking:"Отметить время <span>→</span>",
+ success:"Выбрано время: {date}, {time}. Оно отмечено в браузере; заявка в клинику не отправлялась.",
+ aboutCardText:"Сайт «Акниет» собирает в одном месте информацию о врачах, филиалах и записи на приём."
+});
+Object.assign(translations.en,{
+ bookingEyebrow:"BOOK AN APPOINTMENT",bookingText:"Choose a specialist and a convenient time. Your selection is marked only in this browser.",
+ formSub:"Choose a doctor, branch, date and time.",stepTwoText:"Choose an open slot in the schedule.",submitBooking:"Select this time <span>→</span>",
+ success:"Selected time: {date}, {time}. It was marked in this browser; no request was sent to a clinic.",
+ aboutCardText:"The Akniyet website brings together information about doctors, branches and appointments."
+});
 const doctors = [
   {id:"aidos",name:"Айдос Халило Серікұлы",specialty:{kk:"Терапевт",ru:"Терапевт",en:"General practitioner"},about:{kk:"Ересектерге алғашқы медициналық кеңес",ru:"Первичная консультация для взрослых",en:"Primary care consultations for adults"},exp:8,days:[1,2,3,4,5],start:9,end:17,branch:0,gender:"m",bg:"#e2f3ed"},
   {id:"ainur",name:"Айнұр Қасымова Ерланқызы",specialty:{kk:"Педиатр",ru:"Педиатр",en:"Pediatrician"},about:{kk:"Балалар денсаулығы және профилактика",ru:"Здоровье детей и профилактика",en:"Children’s health and prevention"},exp:7,days:[1,2,3,4,5],start:9,end:16,branch:1,gender:"f",bg:"#fff0e8"},
