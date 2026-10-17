@@ -96,6 +96,27 @@ Object.assign(translations.en,{
  trustEyebrow:"OPENNESS AND TRUST",trustTitle:"Trust starts with clear information",trustLead:"When choosing a doctor, check their qualifications, experience and service prices. Profiles on this page are illustrative examples for an educational project.",trustPoint1:"Check qualifications",trustPoint1Text:"Ask about the doctor's degree and specialist certificate.",trustPoint2:"Discuss the care plan",trustPoint2Text:"Ask the doctor to explain the purpose of tests and treatment.",trustPoint3:"Confirm the price in advance",trustPoint3Text:"Ask about additional service costs before the appointment.",
  videoTitle:"Helpful video about surgery",videoText:"Patient Q&A with specialists from Johns Hopkins Medicine",videoDisclaimer:"This video is provided by an external source. It does not show operating-room footage; discuss medical decisions with a doctor.",videoSource:"Source: Johns Hopkins Medicine ↗",
  assistantHours:"Sample schedule: Monday to Friday, 09:00–17:00. Confirm actual hours with the clinic.",assistantAbout:"This page includes profiles for a GP, pediatrician, cardiologist and other specialists, branch addresses, prices and a booking calendar.",assistantBook:"In the booking section, choose a doctor, branch, date and open time. Website bookings are not sent to a clinic.",assistantGreeting:"Hello! Ask about the clinic, specialists, locations, prices or appointments.",assistantEmergency:"For an emergency in Kazakhstan, call 112 or 103.",footerText:"Akniyet is a sample clinic website for an educational project."});
+Object.assign(translations.kk,{
+ aboutLead:"Ақниет — отбасылық денсаулық пен медициналық ақпаратқа бағытталған клиника жобасы.",
+ aboutCardText:"Ақниет сайты дәрігерлер, филиалдар және қабылдауды жоспарлау туралы ақпаратты бір жерге жинайды.",
+ assistantHelp:"Емхана, дәрігерлер, жазылу, мекенжайлар және бағалар туралы сұрақтарыңызға жауап беремін. Диагноз қоймаймын.",
+ assistantUnknown:"Бұл сұрақ бойынша нақты ақпарат таппадым. Емхана, дәрігер, жазылу, мекенжай немесе баға туралы сұрап көріңіз.",
+ bookingNoName:"Жазылу үшін аты-жөн мен телефон қажет емес: дәрігерді, филиалды, күнді және уақытты таңдаңыз."
+});
+Object.assign(translations.ru,{
+ aboutLead:"«Акниет» — проект семейной клиники с удобной записью и полезной информацией о здоровье.",
+ aboutCardText:"Сайт «Акниет» собирает в одном месте информацию о врачах, филиалах и записи на приём.",
+ assistantHelp:"Я отвечаю на вопросы о клинике, врачах, записи, адресах и ценах. Диагнозы не ставлю.",
+ assistantUnknown:"Не нашёл точную информацию по этому вопросу. Спросите о клинике, враче, записи, адресе или цене.",
+ bookingNoName:"Для записи не нужны имя и телефон: выберите врача, филиал, дату и время."
+});
+Object.assign(translations.en,{
+ aboutLead:"Akniyet is a family-clinic project with convenient booking and helpful health information.",
+ aboutCardText:"The Akniyet website brings together information about doctors, branches and appointments.",
+ assistantHelp:"I can answer questions about the clinic, doctors, appointments, locations and prices. I do not diagnose.",
+ assistantUnknown:"I couldn't find specific information for that question. Try asking about the clinic, doctors, appointments, locations or prices.",
+ bookingNoName:"To book, select a doctor, branch, date and time. No name or phone number is required."
+});
 const doctors = [
   {id:"aidos",name:"Айдос Халило Серікұлы",specialty:{kk:"Терапевт",ru:"Терапевт",en:"General practitioner"},about:{kk:"Ересектерге алғашқы медициналық кеңес",ru:"Первичная консультация для взрослых",en:"Primary care consultations for adults"},exp:8,days:[1,2,3,4,5],start:9,end:17,branch:0,gender:"m",bg:"#e2f3ed"},
   {id:"ainur",name:"Айнұр Қасымова Ерланқызы",specialty:{kk:"Педиатр",ru:"Педиатр",en:"Pediatrician"},about:{kk:"Балалар денсаулығы және профилактика",ru:"Здоровье детей и профилактика",en:"Children’s health and prevention"},exp:7,days:[1,2,3,4,5],start:9,end:16,branch:1,gender:"f",bg:"#fff0e8"},
