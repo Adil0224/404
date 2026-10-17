@@ -4,3 +4,9 @@
 @media(max-width:650px){.site-header{min-height:67px;padding:10px 18px}.menu-toggle{display:block}.main-nav{position:absolute;top:100%;right:0;left:0;display:none;align-items:stretch;flex-direction:column;gap:0;padding:8px 18px 15px;border-bottom:1px solid var(--line);background:#fff}.main-nav.open{display:flex}.main-nav a{padding:10px 4px}.main-nav .nav-cta{margin-top:5px;padding:10px}.header-actions{margin-left:auto}.hero{grid-template-columns:1fr;gap:28px;padding:48px 22px}.hero-visual{min-height:280px}.hero-cross{width:120px;height:120px;font-size:100px}.hero-facts{gap:12px}.section,.booking-section{padding:54px 22px}.section-heading{align-items:flex-start;flex-direction:column;gap:10px}.doctor-grid,.review-grid,.branch-grid{grid-template-columns:1fr}.about-grid{grid-template-columns:1fr}.about-main{grid-column:auto}.booking-section{grid-template-columns:1fr;gap:28px}.branch-card{grid-template-columns:.65fr 1.35fr}.site-footer{flex-wrap:wrap;padding:20px 18px}.site-footer p{order:3;width:100%}.cookie-banner{right:10px;bottom:10px;left:10px;align-items:flex-start;flex-direction:column;gap:12px;padding:15px}.cookie-actions{width:100%;justify-content:flex-end}.form-row{gap:8px}.auth-dialog{padding:25px}}
 @media(max-width:380px){.brand{font-size:15px}.brand-mark{width:34px;height:34px}.header-actions{gap:6px}.language-picker select{padding:7px 5px;font-size:10px}.form-row{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
+
+.education-section{background:linear-gradient(135deg,#eaf5f1,#f7faf8)}
+.education-video{align-self:stretch}
+.medical-video{display:block;width:100%;aspect-ratio:16/9;height:auto;margin:10px 0 12px;border:0;border-radius:12px;background:#102e33}
+.education-video>a{color:var(--green);font-size:11px;font-weight:700}
+@media(max-width:650px){.medical-video{min-height:210px}}
