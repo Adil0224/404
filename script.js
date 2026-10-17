@@ -177,7 +177,7 @@ $("#close-auth").addEventListener("click",()=>{closeAuth();trackAction("auth_clo
 authBackdrop.addEventListener("click",event=>{if(event.target===authBackdrop&&sessionStorage.getItem(loginKey)==="yes")closeAuth()});
 document.addEventListener("keydown",event=>{if(event.key==="Escape"&&sessionStorage.getItem(loginKey)==="yes")closeAuth()});
 if(sessionStorage.getItem(loginKey)!=="yes")openAuth();else updateAccount();
-$("#language-select").addEventListener("change",event=>{setLanguage(event.target.value);trackAction("language_change")});
+$("#language-select").addEventListener("change",event=>{setLanguage(event.target.value);updateAccount();trackAction("language_change")});
 $("#menu-toggle").addEventListener("click",event=>{const open=$("#menu-toggle").getAttribute("aria-expanded")!=="true";$("#menu-toggle").setAttribute("aria-expanded",String(open));$(".main-nav").classList.toggle("open",open)});
 document.querySelectorAll(".main-nav a").forEach(link=>link.addEventListener("click",()=>$(".main-nav").classList.remove("open")));
 function cookie(name){return document.cookie.split("; ").find(row=>row.startsWith(name+"="))?.split("=")[1]||""}
