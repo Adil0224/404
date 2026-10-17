@@ -56,6 +56,8 @@
         <article class="about-card about-main"><span class="about-symbol">✚</span><h3 data-i18n="aboutCardTitle">Күнделікті қамқорлық</h3><p data-i18n="aboutCardText">Бұл демонстрациялық бет дәрігерлерді қарау мен қабылдауға жазылу жолын көрсету үшін жасалды. Мұнда көрсетілген деректер нақты медициналық қызметке жатпайды.</p></article>
         <article class="about-card"><span class="mini-icon">⌖</span><h3 data-i18n="aboutBranchesTitle">Екі ыңғайлы мекенжай</h3><p data-i18n="aboutBranchesText">Назарбаева және Өтепова көшелеріндегі үлгі филиалдар.</p></article>
         <article class="about-card"><span class="mini-icon">◷</span><h3 data-i18n="aboutBookingTitle">Қарапайым жазылу</h3><p data-i18n="aboutBookingText">Маман, күн мен бос уақытты таңдаңыз. Жазылу тек осы браузердегі демонстрация ретінде жұмыс істейді.</p></article>
+        <article class="about-card"><span class="mini-icon">⌂</span><h3 data-i18n="clinicStoryTitle">Ақниет туралы</h3><p data-i18n="clinicStoryText">Алматыдағы оқу жобасының үлгі емханасы. Үлгі тарихы бойынша 2012 жылы ашылған; нақты ұйым туралы ақпарат емес.</p></article>
+        <article class="about-card"><span class="mini-icon">♡</span><h3 data-i18n="careValuesTitle">Қамқорлық қағидалары</h3><p data-i18n="careValuesText">Түсінікті кеңес, алдын алу және әр адамға мұқият қарау — сайтта көрсетілген ойдан шығарылған қызмет үлгісі.</p></article>
       </div>
       <p class="fiction-note" data-i18n="fictionNotice">Ескерту: дәрігерлердің аты-жөні мен деректері ойдан шығарылған; фотолар — нақты дәрігерлер емес, профильді көрсетуге арналған сток суреттер. Пікірлер де үлгі ретінде жасалған.</p>
     </section>
@@ -69,14 +71,41 @@
       <div class="booking-intro"><p class="eyebrow" data-i18n="bookingEyebrow">ОНЛАЙН ЖАЗЫЛУ ҮЛГІСІ</p><h2 data-i18n="bookingTitle">Қабылдау уақытын таңдаңыз</h2><p data-i18n="bookingText">Бұл форма оқу демонстрациясы үшін. Мәліметтер серверге немесе емханаға жіберілмейді.</p><div class="booking-step"><span>01</span><div><b data-i18n="stepOneTitle">Маман мен филиалды таңдаңыз</b><small data-i18n="stepOneText">Сізге қолайлы мекенжайды белгілеңіз</small></div></div><div class="booking-step"><span>02</span><div><b data-i18n="stepTwoTitle">Күн мен бос уақытты таңдаңыз</b><small data-i18n="stepTwoText">Бос слоттар үлгі ретінде көрсетіледі</small></div></div></div>
       <form class="booking-form" id="booking-form">
         <div class="form-heading"><div><h3 data-i18n="formTitle">Қабылдауға жазылу</h3><p data-i18n="formSub">Байланыс деректері тек осы формада қолданылады</p></div><span class="form-icon">✳</span></div>
-        <label for="patient-name" data-i18n="nameLabel">Аты-жөніңіз</label><input id="patient-name" name="name" type="text" placeholder="Мысалы, Айдана Нұрланқызы" autocomplete="name" maxlength="80" required>
-        <label for="patient-phone" data-i18n="phoneLabel">Телефон нөмірі</label><input id="patient-phone" name="phone" type="tel" placeholder="+7 700 000 00 00" autocomplete="tel" inputmode="tel" required>
+        <p class="privacy-note" data-i18n="bookingNoName">Жазылу үшін аты-жөн мен телефон енгізілмейді. Бұл — браузердегі үлгі күнтізбе.</p>
         <div class="form-row"><div><label for="doctor" data-i18n="doctorLabel">Дәрігер</label><select id="doctor" name="doctor" required></select></div><div><label for="branch" data-i18n="branchLabel">Филиал</label><select id="branch" name="branch" required></select></div></div>
         <div class="form-row"><div><label for="appointment-date" data-i18n="dateLabel">Күні</label><input id="appointment-date" name="date" type="date" required></div><div><label for="appointment-time" data-i18n="timeLabel">Уақыты</label><select id="appointment-time" name="time" required></select></div></div>
         <button class="button button-primary submit-button" type="submit" data-i18n="submitBooking">Үлгі жазылуды растау <span>→</span></button>
         <p class="privacy-note" data-i18n="privacyNote">Қауіпсіздік: аты-жөніңіз бен телефон нөміріңіз сақталмайды және жіберілмейді.</p>
         <div class="form-message" id="form-message" role="status" aria-live="polite" hidden></div>
       </form>
+    </section>
+
+    <section class="section about-section" id="prices">
+      <div class="section-heading"><div><p class="eyebrow" data-i18n="pricesEyebrow">ҚЫЗМЕТТЕР МЕН БАҒА</p><h2 data-i18n="pricesTitle">Қабылдау құны</h2></div><p data-i18n="pricesLead">Оқу жобасына арналған мысал бағалар. Нақты баға емес.</p></div>
+      <div class="about-grid">
+        <article class="about-card"><span class="mini-icon">₸</span><h3 data-i18n="priceTherapist">Терапевт кеңесі</h3><p><strong>8 000 ₸</strong> · <span data-i18n="priceDuration">30 минут</span></p></article>
+        <article class="about-card"><span class="mini-icon">♡</span><h3 data-i18n="pricePediatrician">Педиатр кеңесі</h3><p><strong>9 000 ₸</strong> · <span data-i18n="priceDuration">30 минут</span></p></article>
+        <article class="about-card"><span class="mini-icon">✚</span><h3 data-i18n="priceSpecialist">Тар маман кеңесі</h3><p><strong>12 000 ₸</strong> · <span data-i18n="priceDuration">40 минут</span></p></article>
+      </div>
+      <p class="fiction-note" data-i18n="priceNote">Бағалар тек жобалық мысал ретінде берілген; нақты емхана қызметінің ұсынысы емес.</p>
+    </section>
+
+    <section class="section doctors-section" id="assistant">
+      <div class="section-heading"><div><p class="eyebrow" data-i18n="assistantEyebrow">САНДЫҚ КӨМЕКШІ</p><h2 data-i18n="assistantTitle">Ақниет көмекшісі</h2></div><p data-i18n="assistantLead">Сұрағыңызды жазыңыз. Бұл кілт сөздермен жұмыс істейтін демо көмекші, медициналық диагноз қоймайды.</p></div>
+      <form class="booking-form" id="assistant-form">
+        <label for="assistant-question" data-i18n="assistantQuestion">Қандай ақпарат керек?</label>
+        <div class="form-row"><input id="assistant-question" type="text" maxlength="240" placeholder="Мысалы: терапевт бағасы немесе филиал" required><button class="button button-primary" type="submit" data-i18n="assistantSend">Сұрау</button></div>
+        <div class="form-message" id="assistant-answer" role="status" aria-live="polite" hidden></div>
+        <p class="privacy-note" data-i18n="assistantDisclaimer">Демо көмекші; шұғыл жағдайда жедел жәрдемге хабарласыңыз.</p>
+      </form>
+    </section>
+
+    <section class="section about-section" id="cabinet">
+      <div class="section-heading"><div><p class="eyebrow" data-i18n="cabinetEyebrow">ЖЕКЕ КАБИНЕТ ҮЛГІСІ</p><h2 data-i18n="cabinetTitle">Менің қабылдауларым</h2></div><p data-i18n="cabinetLead">Бұл браузерде жасалған демо жазылымдар мен ойдан шығарылған медициналық тарих.</p></div>
+      <div class="booking-form"><h3 data-i18n="upcomingTitle">Алдағы қабылдаулар</h3><div id="my-bookings" class="about-grid"></div><h3 data-i18n="historyTitle">Бұрынғы қабылдау үлгісі</h3><div class="about-grid">
+        <article class="about-card"><span class="mini-icon">✓</span><h3 data-i18n="historyVisitTitle">Терапевт қабылдауы · үлгі</h3><p data-i18n="historyVisitText">Дәрігер кеңес берді және жалпы тексеру жүргізді. Бұл нақты медициналық жазба емес.</p></article>
+        <article class="about-card"><span class="mini-icon">♡</span><h3 data-i18n="historyStatusTitle">Жағдай туралы үлгі</h3><p data-i18n="historyStatusText">Демо картада “жағдайы тұрақты” деп көрсетілген. Бұл нақты адамның денсаулық ақпараты емес.</p></article>
+      </div><p class="privacy-note" data-i18n="historyDisclaimer">Нақты диагноз, ем немесе денсаулық дерегі сақталмайды. Бұл бөлім тек интерфейс үлгісі.</p></div>
     </section>
 
     <section class="section branches-section" id="branches">
@@ -94,7 +123,7 @@
     </section>
   </main>
 
-  <footer class="site-footer"><a class="brand" href="#home"><span class="brand-mark">✚</span><span>Ақниет<small data-i18n="brandTag">отбасылық емханасы</small></span></a><p data-i18n="footerText">Оқу жобасының демонстрациясы · Нақты қабылдау тіркелмейді</p><a href="#home" class="back-top" data-i18n="backTop">Жоғары ↑</a></footer>
+  <footer class="site-footer"><a class="brand" href="#home"><span class="brand-mark">✚</span><span>Ақниет<small data-i18n="brandTag">отбасылық емханасы</small></span></a><p data-i18n="footerText">Оқу жобасының демонстрациясы · Нақты қабылдау тіркелмейді</p><div><a href="https://wa.me/77001234567" target="_blank" rel="noopener noreferrer" data-i18n="whatsappLink">WhatsApp ↗</a> · <a href="https://instagram.com/akniet.clinic" target="_blank" rel="noopener noreferrer" data-i18n="instagramLink">Instagram ↗</a></div><a href="#home" class="back-top" data-i18n="backTop">Жоғары ↑</a></footer>
 
   <div class="auth-backdrop" id="auth-backdrop" hidden>
     <section class="auth-dialog" role="dialog" aria-modal="true" aria-labelledby="auth-title">
