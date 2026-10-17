@@ -64,7 +64,7 @@ function formatDays(days){return days.map(day=>dayNames[language][day]).join(", 
 function pad(value){return String(value).padStart(2,"0")}
 function renderReviews(){const grid=$("#review-grid");grid.innerHTML="";reviews.forEach(review=>{const card=document.createElement("article");card.className="review-card";card.innerHTML='<div class="review-stars" aria-label="5 stars">★★★★★</div><blockquote>“'+review.text[language]+'”</blockquote><div class="review-author"><span class="review-initial">'+review.initial+'</span><span><b>'+review.name+'</b><small>'+t("sampleTag")+'</small></span></div>';grid.append(card)})}
 function renderOptions(){doctorSelect.innerHTML='<option value="">'+t("docOptions")+'</option>';doctors.forEach(d=>doctorSelect.add(new Option(d.name,d.id)));branchSelect.innerHTML='<option value="">'+t("branchOptions")+'</option>';branches.forEach(b=>branchSelect.add(new Option(t(b.labelKey),b.id)));timeSelect.innerHTML='<option value="">'+t("timeOptions")+'</option>'}
-function setLanguage(next){language=next;localStorage.setItem("clinic-language",language);document.documentElement.lang=language;$("#language-select").value=language;document.querySelectorAll("[data-i18n]").forEach(el=>{const value=t(el.dataset.i18n);if(el.children.length&&value.includes("<span>"))el.innerHTML=value;else el.textContent=value});renderDoctors();renderReviews();const prevDoctor=doctorSelect.value,prevBranch=branchSelect.value;renderOptions();if(doctors.some(d=>d.id===prevDoctor))doctorSelect.value=prevDoctor;if(branches.some(b=>b.id===prevBranch))branchSelect.value=prevBranch;updateAvailableTimes();$("#menu-toggle").setAttribute("aria-label",language==="kk"?"Мәзірді ашу":language==="ru"?"Открыть меню":"Open menu")}
+function setLanguage(next){language=next;localStorage.setItem("clinic-language",language);document.documentElement.lang=language;$("#language-select").value=language;document.querySelectorAll("[data-i18n]").forEach(el=>{const value=t(el.dataset.i18n);if(value.includes("<"))el.innerHTML=value;else el.textContent=value});renderDoctors();renderReviews();const prevDoctor=doctorSelect.value,prevBranch=branchSelect.value;renderOptions();if(doctors.some(d=>d.id===prevDoctor))doctorSelect.value=prevDoctor;if(branches.some(b=>b.id===prevBranch))branchSelect.value=prevBranch;updateAvailableTimes();$("#menu-toggle").setAttribute("aria-label",language==="kk"?"Мәзірді ашу":language==="ru"?"Открыть меню":"Open menu")}
 function addPlaceholder(select,text){select.innerHTML="";select.add(new Option(text,""))}
 function localDate(date){return date.getFullYear()+"-"+pad(date.getMonth()+1)+"-"+pad(date.getDate())}
 function getReservations(){try{return JSON.parse(sessionStorage.getItem("clinic-demo-slots")||"[]")}catch{return []}}
@@ -76,12 +76,12 @@ function showMessage(message,error=false){formMessage.textContent=message;formMe
 const loginKey="clinic-demo-auth";
 function openAuth(){authBackdrop.hidden=false;document.body.classList.add("modal-open");$("#auth-name").focus()}
 function closeAuth(){authBackdrop.hidden=true;document.body.classList.remove("modal-open")}
-$("#auth-form").addEventListener("submit",event=>{event.preventDefault();if(!event.currentTarget.reportValidity())return;sessionStorage.setItem(loginKey,"yes");closeAuth();$("#open-auth").textContent=t("authSuccess");event.currentTarget.reset()});
+$("#auth-form").addEventListener("submit",event=>{event.preventDefault();if(!event.currentTarget.reportValidity())return;sessionStorage.setItem(loginKey,"yes");closeAuth();event.currentTarget.reset()});
 $("#open-auth").addEventListener("click",()=>{sessionStorage.removeItem(loginKey);openAuth()});
 $("#close-auth").addEventListener("click",()=>{closeAuth();trackAction("auth_close")});
 authBackdrop.addEventListener("click",event=>{if(event.target===authBackdrop&&sessionStorage.getItem(loginKey)==="yes")closeAuth()});
 document.addEventListener("keydown",event=>{if(event.key==="Escape"&&sessionStorage.getItem(loginKey)==="yes")closeAuth()});
-if(sessionStorage.getItem(loginKey)!=="yes")openAuth();else $("#open-auth").textContent=t("authSuccess");
+if(sessionStorage.getItem(loginKey)!=="yes")openAuth();
 $("#language-select").addEventListener("change",event=>{setLanguage(event.target.value);trackAction("language_change")});
 $("#menu-toggle").addEventListener("click",event=>{const open=$("#menu-toggle").getAttribute("aria-expanded")!=="true";$("#menu-toggle").setAttribute("aria-expanded",String(open));$(".main-nav").classList.toggle("open",open)});
 document.querySelectorAll(".main-nav a").forEach(link=>link.addEventListener("click",()=>$(".main-nav").classList.remove("open")));
@@ -93,6 +93,5 @@ if(!cookie("clinic_consent"))banner.hidden=false;
 $("#cookie-accept").addEventListener("click",()=>{setCookie("clinic_consent","yes",180);banner.hidden=true;trackAction("cookie_consent")});
 $("#cookie-decline").addEventListener("click",()=>{setCookie("clinic_consent","no",180);document.cookie="clinic_actions=; Max-Age=0; Path=/; SameSite=Lax";banner.hidden=true});
 $("#language-select").value=language;
-const t0=translations.kk;
 translations.kk.hours="Қабылдау";translations.ru.hours="Приём";translations.en.hours="Hours";
 setLanguage(language);
