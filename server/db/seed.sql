@@ -41,6 +41,29 @@ JOIN doctors d ON d.public_code = assignment.doctor_code
 JOIN branches b ON b.public_code = assignment.branch_code
 ON CONFLICT DO NOTHING;
 
+INSERT INTO doctor_schedules (doctor_id, branch_id, weekday, starts_at, ends_at, slot_minutes)
+SELECT d.id, b.id, schedule.weekday, schedule.starts_at, schedule.ends_at, 30
+FROM (VALUES
+  ('aidos', 'naz', ARRAY[1,2,3,4,5]::SMALLINT[], TIME '09:00', TIME '17:00'),
+  ('ainur', 'utep', ARRAY[1,2,3,4,5]::SMALLINT[], TIME '09:00', TIME '16:00'),
+  ('dias', 'naz', ARRAY[1,2,3,4]::SMALLINT[], TIME '10:00', TIME '17:00'),
+  ('madina', 'utep', ARRAY[1,2,3,4,5]::SMALLINT[], TIME '09:00', TIME '15:00'),
+  ('timur', 'naz', ARRAY[1,2,3,5]::SMALLINT[], TIME '10:00', TIME '16:00'),
+  ('zhanna', 'utep', ARRAY[2,3,4,5]::SMALLINT[], TIME '09:00', TIME '16:00'),
+  ('ruslan', 'naz', ARRAY[1,2,3,4,5]::SMALLINT[], TIME '09:00', TIME '16:00'),
+  ('aliya', 'utep', ARRAY[1,2,4,5]::SMALLINT[], TIME '10:00', TIME '17:00'),
+  ('marat', 'naz', ARRAY[1,3,4,5]::SMALLINT[], TIME '09:00', TIME '15:00'),
+  ('kamila', 'utep', ARRAY[1,2,3,4,5]::SMALLINT[], TIME '09:00', TIME '16:00')
+) AS hours(doctor_code, branch_code, weekdays, starts_at, ends_at)
+JOIN doctors d ON d.public_code = hours.doctor_code
+JOIN branches b ON b.public_code = hours.branch_code
+CROSS JOIN LATERAL unnest(hours.weekdays) AS schedule(weekday)
+ON CONFLICT (doctor_id, branch_id, weekday) DO UPDATE SET
+  starts_at = EXCLUDED.starts_at,
+  ends_at = EXCLUDED.ends_at,
+  slot_minutes = EXCLUDED.slot_minutes,
+  is_active = TRUE;
+
 INSERT INTO services (public_code, name, price_kzt, duration_minutes)
 VALUES
   ('therapist', 'Терапевт кеңесі', 8000, 30),
