@@ -10,3 +10,6 @@
 .medical-video{display:block;width:100%;aspect-ratio:16/9;height:auto;margin:10px 0 12px;border:0;border-radius:12px;background:#102e33}
 .education-video>a{color:var(--green);font-size:11px;font-weight:700}
 @media(max-width:650px){.medical-video{min-height:210px}}
+
+/* Қызметкердің жеке кабинеті */
+.staff-dashboard{scroll-margin-top:24px}.staff-profile{margin-bottom:20px}.staff-dashboard[hidden]{display:none}
