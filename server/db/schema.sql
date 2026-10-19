@@ -64,6 +64,19 @@ CREATE TABLE IF NOT EXISTS services (
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+CREATE TABLE IF NOT EXISTS doctor_schedules (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  doctor_id UUID NOT NULL REFERENCES doctors(id) ON DELETE CASCADE,
+  branch_id UUID NOT NULL REFERENCES branches(id) ON DELETE CASCADE,
+  weekday SMALLINT NOT NULL CHECK (weekday BETWEEN 0 AND 6),
+  starts_at TIME NOT NULL,
+  ends_at TIME NOT NULL,
+  slot_minutes SMALLINT NOT NULL DEFAULT 30 CHECK (slot_minutes > 0),
+  is_active BOOLEAN NOT NULL DEFAULT TRUE,
+  CONSTRAINT schedule_time_order CHECK (ends_at > starts_at),
+  CONSTRAINT doctor_schedule_unique UNIQUE (doctor_id, branch_id, weekday)
+);
+
 CREATE TABLE IF NOT EXISTS appointments (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   patient_id UUID NOT NULL REFERENCES users(id) ON DELETE RESTRICT,
@@ -87,6 +100,8 @@ CREATE TABLE IF NOT EXISTS reviews (
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+CREATE INDEX IF NOT EXISTS doctor_schedules_lookup_idx
+  ON doctor_schedules (doctor_id, branch_id, weekday, is_active);
 CREATE INDEX IF NOT EXISTS appointments_patient_start_idx
   ON appointments (patient_id, starts_at DESC);
 CREATE INDEX IF NOT EXISTS appointments_doctor_start_idx
