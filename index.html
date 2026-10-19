@@ -112,6 +112,8 @@
       </div><p class="privacy-note" data-i18n="historyDisclaimer">Нақты диагноз, ем немесе денсаулық дерегі сақталмайды. Бұл бөлім тек интерфейс үлгісі.</p></div>
     </section>
 
+    <section class="section about-section staff-dashboard" id="staff-dashboard" hidden><div class="section-heading"><div><p class="eyebrow">ҚЫЗМЕТКЕР КАБИНЕТІ</p><h2 id="staff-welcome">Жеке парақша</h2></div><p>Сіз таңдаған дәрігерге жазылған қабылдаулар осы браузерде көрсетіледі.</p></div><div class="staff-profile booking-form"><h3 id="staff-specialty"></h3><p id="staff-bio"></p><p class="privacy-note">Бұл оқу жобасының үлгісі. Нақты пациент деректері немесе диагноздар көрсетілмейді.</p></div><div class="booking-form"><h3>Пациенттердің жазылулары</h3><div id="staff-bookings" class="about-grid"></div></div></section>
+
     <section class="section branches-section" id="branches">
       <div class="section-heading"><div><p class="eyebrow" data-i18n="branchesEyebrow">БІЗДІҢ МЕКЕНЖАЙЛАР</p><h2 data-i18n="branchesTitle">Өзіңізге жақын филиал</h2></div><p data-i18n="branchesLead">Көрсетілген мекенжайлар жобада сұралған мысалдар. Бармас бұрын нақты мекенжайды тексеріңіз.</p></div>
       <div class="branch-grid">
@@ -149,7 +151,7 @@
   <div class="auth-backdrop" id="auth-backdrop" hidden>
     <section class="auth-dialog" role="dialog" aria-modal="true" aria-labelledby="auth-title">
       <button class="dialog-close" id="close-auth" type="button" aria-label="Жабу">×</button><span class="auth-mark">✚</span><p class="eyebrow" data-i18n="authEyebrow">ДЕМОНСТРАЦИЯЛЫҚ КІРУ</p><h2 id="auth-title" data-i18n="authTitle">Қош келдіңіз!</h2><p data-i18n="authText">Үлгі сайтты көру үшін аты-жөніңіз бен телефон нөміріңізді енгізіңіз.</p>
-      <form id="auth-form"><label for="auth-name" data-i18n="nameLabel">Аты-жөніңіз</label><input id="auth-name" name="name" type="text" maxlength="80" autocomplete="name" required><label for="auth-phone" data-i18n="phoneLabel">Телефон нөмірі</label><input id="auth-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required><button class="button button-primary submit-button" type="submit" data-i18n="authSubmit">Үлгіні ашу <span>→</span></button></form>
+      <form id="auth-form"><label for="auth-role">Кіру түрі</label><select id="auth-role" name="role"><option value="patient">Пациент</option><option value="staff">Қызметкер</option></select><div id="patient-login-fields"><label for="auth-name" data-i18n="nameLabel">Аты-жөніңіз</label><input id="auth-name" name="name" type="text" maxlength="80" autocomplete="name" required><label for="auth-phone" data-i18n="phoneLabel">Телефон нөмірі</label><input id="auth-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required></div><div id="staff-login-fields" hidden><label for="staff-account">Дәрігер</label><select id="staff-account"></select><label for="staff-password">Қызметкер құпиясөзі</label><input id="staff-password" type="password" autocomplete="current-password"></div><button class="button button-primary submit-button" type="submit" data-i18n="authSubmit">Кіру <span>→</span></button></form>
       <p class="auth-disclaimer" data-i18n="authDisclaimer">Бұл шынайы авторизация емес. Енгізілген деректер тексерілмейді, сақталмайды және ешқайда жіберілмейді.</p>
     </section>
   </div>
