@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="kk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Ақниет емханасының оқу жобасына арналған әкімші панелі">
+  <meta name="theme-color" content="#087f73">
+  <title>Әкімші панелі — Ақниет</title>
+  <link rel="stylesheet" href="admin.css">
+  <script src="admin.js" defer></script>
+</head>
+<body>
+  <header class="admin-header">
+    <a class="admin-brand" href="./">✚ Ақниет <span>Әкімші панелі</span></a>
+    <a class="back-link" href="./">Сайтқа қайту</a>
+  </header>
+  <main class="admin-main">
+    <section class="notice">
+      <b>Backend ескертуі</b>
+      <p>Бұл бет API серверіне жалғанады. Backend пен PostgreSQL іске қосылмайынша деректер ашылмайды. Құпиясөзді тек өз серверіңізге енгізіңіз.</p>
+    </section>
+    <section class="login-card" id="login-card">
+      <h1>Әкімшіге кіру</h1>
+      <p>Әкімші тіркелгісі сервердегі бір реттік орнату скрипті арқылы жасалады.</p>
+      <form id="login-form">
+        <label for="api-url">API серверінің адресі</label>
+        <input id="api-url" type="url" value="http://localhost:3000" required>
+        <label for="login-identifier">Email</label>
+        <input id="login-identifier" type="email" autocomplete="username" required>
+        <label for="login-password">Құпиясөз</label>
+        <input id="login-password" type="password" autocomplete="current-password" required>
+        <button type="submit">Кіру</button>
+      </form>
+      <p class="status" id="login-status" role="status" aria-live="polite"></p>
+    </section>
+
+    <section id="admin-app" hidden>
+      <div class="admin-title">
+        <div><p class="eyebrow">БАСҚАРУ</p><h1>Емхана деректері</h1><p id="admin-user"></p></div>
+        <button class="button-secondary" id="logout-button" type="button">Шығу</button>
+      </div>
+      <nav class="tabs" aria-label="Басқару бөлімдері">
+        <button type="button" data-resource="doctors" class="active">Дәрігерлер</button>
+        <button type="button" data-resource="branches">Филиалдар</button>
+        <button type="button" data-resource="services">Қызметтер мен бағалар</button>
+        <button type="button" data-resource="schedules">Жұмыс кестесі</button>
+      </nav>
+      <div class="admin-grid">
+        <section class="panel">
+          <h2 id="form-title">Дәрігер қосу</h2>
+          <form id="record-form"></form>
+          <button class="button-secondary" id="cancel-edit" type="button" hidden>Өзгертуді тоқтату</button>
+        </section>
+        <section class="panel">
+          <div class="list-heading"><h2 id="list-title">Дәрігерлер тізімі</h2><button class="button-secondary" id="refresh-button" type="button">Жаңарту</button></div>
+          <p class="status" id="admin-status" role="status" aria-live="polite"></p>
+          <div class="records" id="records"></div>
+        </section>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
