@@ -380,6 +380,91 @@ clinicRouter.delete("/admin/services/:id", requireAuth, requireRole("admin"), as
   await deactivateRecord(request, response, "services");
 });
 
+clinicRouter.get("/admin/schedules", requireAuth, requireRole("admin"), async (_request, response) => {
+  const result = await pool.query(
+    `SELECT ds.id, ds.doctor_id AS "doctorId", d.full_name AS "doctorName",
+            ds.branch_id AS "branchId", b.name AS "branchName", ds.weekday,
+            ds.starts_at AS "startsAt", ds.ends_at AS "endsAt",
+            ds.slot_minutes AS "slotMinutes", ds.is_active AS "isActive"
+     FROM doctor_schedules ds
+     JOIN doctors d ON d.id = ds.doctor_id
+     JOIN branches b ON b.id = ds.branch_id
+     ORDER BY d.full_name, ds.weekday, ds.starts_at`
+  );
+  response.json({ data: result.rows });
+});
+
+clinicRouter.post("/admin/schedules", requireAuth, requireRole("admin"), async (request, response) => {
+  const { doctorId, branchId, weekday, startsAt, endsAt, slotMinutes = 30 } = request.body;
+  if (!isUuid(doctorId) || !isUuid(branchId) || !Number.isInteger(weekday) || weekday < 0 || weekday > 6) {
+    throw apiError(400, "Choose a valid doctor, branch, and weekday.");
+  }
+  if (!/^([01]\\d|2[0-3]):[0-5]\\d$/.test(startsAt || "") ||
+      !/^([01]\\d|2[0-3]):[0-5]\\d$/.test(endsAt || "") || startsAt >= endsAt) {
+    throw apiError(400, "Enter valid working hours.");
+  }
+  if (!Number.isInteger(slotMinutes) || slotMinutes < 5 || slotMinutes > 240) {
+    throw apiError(400, "Slot length must be between 5 and 240 minutes.");
+  }
+  const client = await pool.connect();
+  try {
+    await client.query("BEGIN");
+    await client.query(
+      "INSERT INTO doctor_branches (doctor_id, branch_id) VALUES ($1, $2) ON CONFLICT DO NOTHING",
+      [doctorId, branchId]
+    );
+    const result = await client.query(
+      `INSERT INTO doctor_schedules (doctor_id, branch_id, weekday, starts_at, ends_at, slot_minutes)
+       VALUES ($1, $2, $3, $4::time, $5::time, $6)
+       ON CONFLICT (doctor_id, branch_id, weekday) DO UPDATE
+         SET starts_at = EXCLUDED.starts_at, ends_at = EXCLUDED.ends_at,
+             slot_minutes = EXCLUDED.slot_minutes, is_active = TRUE
+       RETURNING id, doctor_id AS "doctorId", branch_id AS "branchId", weekday,
+                 starts_at AS "startsAt", ends_at AS "endsAt", slot_minutes AS "slotMinutes", is_active AS "isActive"`,
+      [doctorId, branchId, weekday, startsAt, endsAt, slotMinutes]
+    );
+    await client.query("COMMIT");
+    response.status(201).json({ data: result.rows[0] });
+  } catch (error) {
+    await client.query("ROLLBACK");
+    throw error;
+  } finally {
+    client.release();
+  }
+});
+
+clinicRouter.patch("/admin/schedules/:id", requireAuth, requireRole("admin"), async (request, response) => {
+  if (!isUuid(request.params.id)) throw apiError(400, "Invalid schedule id.");
+  const current = await pool.query("SELECT starts_at, ends_at, slot_minutes, is_active FROM doctor_schedules WHERE id = $1", [request.params.id]);
+  if (!current.rowCount) throw apiError(404, "Schedule not found.");
+  const startsAt = request.body.startsAt ?? String(current.rows[0].starts_at).slice(0, 5);
+  const endsAt = request.body.endsAt ?? String(current.rows[0].ends_at).slice(0, 5);
+  const slotMinutes = request.body.slotMinutes ?? current.rows[0].slot_minutes;
+  const isActive = request.body.isActive ?? current.rows[0].is_active;
+  if (!/^([01]\\d|2[0-3]):[0-5]\\d$/.test(startsAt) ||
+      !/^([01]\\d|2[0-3]):[0-5]\\d$/.test(endsAt) || startsAt >= endsAt ||
+      !Number.isInteger(slotMinutes) || slotMinutes < 5 || slotMinutes > 240 ||
+      typeof isActive !== "boolean") {
+    throw apiError(400, "Provide valid schedule hours, slot length, and active state.");
+  }
+  const result = await pool.query(
+    `UPDATE doctor_schedules
+     SET starts_at = $1::time, ends_at = $2::time, slot_minutes = $3, is_active = $4
+     WHERE id = $5
+     RETURNING id, doctor_id AS "doctorId", branch_id AS "branchId", weekday,
+               starts_at AS "startsAt", ends_at AS "endsAt", slot_minutes AS "slotMinutes", is_active AS "isActive"`,
+    [startsAt, endsAt, slotMinutes, isActive, request.params.id]
+  );
+  response.json({ data: result.rows[0] });
+});
+
+clinicRouter.delete("/admin/schedules/:id", requireAuth, requireRole("admin"), async (request, response) => {
+  if (!isUuid(request.params.id)) throw apiError(400, "Invalid schedule id.");
+  const result = await pool.query("UPDATE doctor_schedules SET is_active = FALSE WHERE id = $1 AND is_active = TRUE RETURNING id", [request.params.id]);
+  if (!result.rowCount) throw apiError(404, "Active schedule not found.");
+  response.json({ data: { id: result.rows[0].id, deactivated: true } });
+});
+
 async function updateAdminRecord(request, response, table, allowedFields, hasUpdatedAt) {
   if (!isUuid(request.params.id)) throw apiError(400, "Invalid record id.");
   const fields = Object.entries(allowedFields)
