@@ -7,7 +7,7 @@ const email = (process.env.ADMIN_EMAIL || "").trim().toLowerCase();
 const password = process.env.ADMIN_PASSWORD || "";
 
 try {
-  if (!fullName || !email || password.length < 14 || Buffer.byteLength(password, "utf8") > 72) {
+  if (!fullName || !email || password.length < 14 || password.startsWith("replace_") || Buffer.byteLength(password, "utf8") > 72) {
     throw new Error("Set ADMIN_NAME, ADMIN_EMAIL, and a 14+ character ADMIN_PASSWORD in server/.env.");
   }
 
