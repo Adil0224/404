@@ -2,6 +2,7 @@
 -- Жеке медициналық диагноздар бұл жобалық модельге енгізілмейді.
 
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
+CREATE EXTENSION IF NOT EXISTS btree_gist;
 
 DO $$ BEGIN
   CREATE TYPE user_role AS ENUM ('patient', 'doctor', 'admin');
@@ -92,6 +93,7 @@ CREATE TABLE IF NOT EXISTS appointments (
   branch_id UUID NOT NULL REFERENCES branches(id) ON DELETE RESTRICT,
   service_id UUID REFERENCES services(id) ON DELETE SET NULL,
   starts_at TIMESTAMPTZ NOT NULL,
+  duration_minutes SMALLINT NOT NULL DEFAULT 30 CHECK (duration_minutes BETWEEN 5 AND 240),
   status appointment_status NOT NULL DEFAULT 'booked',
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
@@ -99,8 +101,14 @@ CREATE TABLE IF NOT EXISTS appointments (
 );
 
 ALTER TABLE appointments DROP CONSTRAINT IF EXISTS doctor_time_unique;
-CREATE UNIQUE INDEX IF NOT EXISTS doctor_active_time_unique
-  ON appointments (doctor_id, starts_at) WHERE status = 'booked';
+ALTER TABLE appointments ADD COLUMN IF NOT EXISTS duration_minutes SMALLINT NOT NULL DEFAULT 30
+  CHECK (duration_minutes BETWEEN 5 AND 240);
+ALTER TABLE appointments DROP CONSTRAINT IF EXISTS appointment_no_overlap;
+ALTER TABLE appointments ADD CONSTRAINT appointment_no_overlap
+  EXCLUDE USING gist (
+    doctor_id WITH =,
+    tstzrange(starts_at, starts_at + make_interval(mins => duration_minutes), '[)') WITH &&
+  ) WHERE (status = 'booked');
 
 CREATE TABLE IF NOT EXISTS reviews (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
