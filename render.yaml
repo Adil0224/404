@@ -18,6 +18,8 @@ services:
           property: connectionString
       - key: DATABASE_SSL
         value: "true"
+      - key: DATABASE_SSL_REJECT_UNAUTHORIZED
+        value: "false"
 
 databases:
   - name: akniet-clinic-db
