@@ -13,3 +13,6 @@
 
 /* Қызметкердің жеке кабинеті */
 .staff-dashboard{scroll-margin-top:24px}.staff-profile{margin-bottom:20px}.staff-dashboard[hidden]{display:none}
+
+/* API каталогының іздеу құралдары */
+.api-directory-tools{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:10px;margin:0 0 20px}.api-directory-tools input,.api-directory-tools select{min-height:44px;border:1px solid var(--line);border-radius:10px;padding:8px 12px;background:#fff;font:inherit;color:var(--text)}.api-directory-status{grid-column:1/-1;color:var(--muted);font-size:14px}.api-directory-pages{display:flex;justify-content:center;align-items:center;gap:12px;margin-top:18px}.api-directory-pages button{border:1px solid var(--line);border-radius:8px;padding:8px 14px;background:#fff;color:var(--green-dark);cursor:pointer}.api-directory-pages button:disabled{opacity:.45;cursor:default}@media(max-width:720px){.api-directory-tools{grid-template-columns:1fr 1fr}}

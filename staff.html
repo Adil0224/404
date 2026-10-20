@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="kk">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Қызметкер кабинеті — Ақниет емханасы</title>
+  <link rel="stylesheet" href="style.css"><link rel="stylesheet" href="portal.css">
+  <script src="api-config.js"></script><script src="staff.js" defer></script>
+</head>
+<body>
+  <header class="portal-header"><a class="portal-brand" href="index.html">Ақниет емханасы</a><nav><a href="index.html">Басты бет</a><a href="portal.html">Пациент кабинеті</a></nav></header>
+  <main class="portal-wrap staff-wrap">
+    <section class="portal-intro"><p class="eyebrow">ҚЫЗМЕТКЕРЛЕРГЕ АРНАЛҒАН БӨЛІМ</p><h1>Дәрігердің жеке кабинеті</h1><p>Қызметкер аккаунтымен кіріп, өзіңізге тіркелген пациенттердің қабылдау кестесін көріңіз.</p></section>
+    <section class="portal-card staff-login" id="staff-login-panel">
+      <form id="staff-login-form"><label>Жұмыс email-і<input name="identifier" type="email" required autocomplete="username"></label><label>Құпиясөз<input name="password" type="password" required autocomplete="current-password"></label><button class="button button-primary" type="submit">Кіру</button><p class="portal-message" id="staff-message" role="status"></p></form>
+    </section>
+    <section class="portal-card" id="staff-dashboard" hidden>
+      <div class="portal-title-row"><div><p class="eyebrow">ЖЕКЕ КАБИНЕТ</p><h2 id="staff-name"></h2><p id="staff-specialty"></p></div><button class="button button-quiet" id="staff-logout">Шығу</button></div>
+      <h3>Сізге тіркелген қабылдаулар</h3><div id="staff-appointments" class="portal-list"></div>
+    </section>
+  </main>
+</body>
+</html>

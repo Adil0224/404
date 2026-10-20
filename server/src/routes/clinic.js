@@ -2,40 +2,9 @@ import { Router } from "express";
 import bcrypt from "bcryptjs";
 import { pool } from "../db.js";
 import { requireAuth, requireRole } from "../auth.js";
+import { apiError, isUuid, listOptions, validAppointmentTime } from "../validation.js";
 
 export const clinicRouter = Router();
-
-function apiError(status, message) {
-  const error = new Error(message);
-  error.status = status;
-  return error;
-}
-
-function listOptions(query, allowedSorts, defaultSort) {
-  const page = query.page === undefined ? 1 : Number(query.page);
-  const limit = query.limit === undefined ? 10 : Number(query.limit);
-  const sortKey = query.sort === undefined ? defaultSort : String(query.sort);
-  const order = query.order === undefined ? "asc" : String(query.order).toLowerCase();
-  if (!Number.isInteger(page) || page < 1 || page > 100000 || !Number.isInteger(limit) || limit < 1 || limit > 50) {
-    throw apiError(400, "Page must be positive and limit must be between 1 and 50.");
-  }
-  if (!Object.hasOwn(allowedSorts, sortKey) || !["asc", "desc"].includes(order)) {
-    throw apiError(400, "Choose a supported sort field and order.");
-  }
-  return { page, limit, offset: (page - 1) * limit, sort: allowedSorts[sortKey], direction: order.toUpperCase() };
-}
-
-function isUuid(value) {
-  return typeof value === "string" &&
-    /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
-}
-
-function validAppointmentTime(value) {
-  return typeof value === "string" &&
-    /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2})?(?:\.\d{1,3})?(?:Z|[+-]\d{2}:\d{2})$/.test(value) &&
-    Number.isFinite(Date.parse(value)) &&
-    Date.parse(value) > Date.now();
-}
 
 async function slotIsAvailable({ doctorId, branchId, serviceId, startsAt, excludeAppointmentId = null }) {
   const result = await pool.query(
@@ -214,6 +183,27 @@ clinicRouter.get("/appointments/:id", requireAuth, async (request, response) => 
   delete appointment.patient_id;
   delete appointment.doctorUserId;
   response.json({ data: appointment });
+});
+
+clinicRouter.get("/availability", async (request, response) => {
+  const { doctorId, branchId, serviceId = null, date } = request.query;
+  if (!isUuid(doctorId) || !isUuid(branchId) || (serviceId && !isUuid(serviceId)) ||
+      typeof date !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+    throw apiError(400, "Choose a valid doctor, branch, optional service, and date.");
+  }
+  const dayStart = new Date(Date.parse(date + "T00:00:00+05:00"));
+  if (!Number.isFinite(dayStart.getTime()) || dayStart.getTime() <= Date.now() - 86400000) {
+    throw apiError(400, "Choose today or a future date.");
+  }
+  const slots = [];
+  for (let minute = 8 * 60; minute < 19 * 60; minute += 30) {
+    const local = String(Math.floor(minute / 60)).padStart(2, "0") + ":" + String(minute % 60).padStart(2, "0");
+    const startsAt = date + "T" + local + ":00+05:00";
+    if (Date.parse(startsAt) > Date.now() && await slotIsAvailable({ doctorId, branchId, serviceId, startsAt })) {
+      slots.push({ time: local, startsAt });
+    }
+  }
+  response.json({ data: slots });
 });
 
 clinicRouter.post("/appointments", requireAuth, requireRole("patient"), async (request, response) => {

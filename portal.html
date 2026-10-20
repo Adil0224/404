@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="kk">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Пациент кабинеті — Ақниет емханасы</title>
+  <link rel="stylesheet" href="style.css"><link rel="stylesheet" href="portal.css">
+  <script src="api-config.js"></script><script src="portal.js" defer></script>
+</head>
+<body>
+  <header class="portal-header"><a class="portal-brand" href="index.html">Ақниет емханасы</a><nav><a href="index.html">Басты бет</a><a href="staff.html">Қызметкер кабинеті</a></nav></header>
+  <main class="portal-wrap">
+    <section class="portal-intro"><p class="eyebrow">ОНЛАЙН ҚЫЗМЕТ</p><h1>Пациенттің жеке кабинеті</h1><p>Тіркеліңіз немесе аккаунтыңызға кіріңіз. Дәрігерді таңдап, бос уақытқа қабылдауға жазылыңыз.</p></section>
+    <div class="portal-grid">
+      <section class="portal-card" id="auth-panel">
+        <div class="portal-tabs"><button type="button" class="active" data-mode="login">Кіру</button><button type="button" data-mode="register">Тіркелу</button></div>
+        <form id="auth-form">
+          <label id="name-field" hidden>Аты-жөніңіз<input name="fullName" autocomplete="name" minlength="2"></label>
+          <label>Телефон немесе email<input name="identifier" autocomplete="username" required></label>
+          <label>Құпиясөз<input name="password" type="password" autocomplete="current-password" minlength="10" required></label>
+          <button class="button button-primary" type="submit" id="auth-submit">Кіру</button><p class="portal-message" id="auth-message" role="status"></p>
+        </form>
+      </section>
+      <section class="portal-card" id="profile-panel" hidden>
+        <div class="portal-title-row"><div><p class="eyebrow">ЖЕКЕ КАБИНЕТ</p><h2 id="profile-name"></h2></div><button class="button button-quiet" id="logout">Шығу</button></div>
+        <h3>Менің қабылдауларым</h3><div id="my-appointments" class="portal-list"></div>
+      </section>
+      <section class="portal-card booking-card">
+        <p class="eyebrow">ЖАЗЫЛУ</p><h2>Қабылдауға жазылу</h2>
+        <form id="booking-form">
+          <label>Дәрігерді іздеу<input id="doctor-search" placeholder="Аты немесе мамандығы"></label>
+          <label>Мамандық<select id="specialty-filter"><option value="">Барлық мамандық</option></select></label>
+          <label>Филиал<select id="branch-filter" required><option value="">Филиалды таңдаңыз</option></select></label>
+          <label>Дәрігер<select id="doctor-select" required><option value="">Дәрігерді таңдаңыз</option></select></label>
+          <label>Қызмет<select id="service-select" required><option value="">Қызметті таңдаңыз</option></select></label>
+          <label>Күні<input id="date-select" type="date" required></label>
+          <label>Бос уақыт<select id="time-select" required><option value="">Алдымен дәрігер, филиал және күн таңдаңыз</option></select></label>
+          <button class="button button-primary" type="submit">Қабылдауға жазылу</button><p class="portal-message" id="booking-message" role="status"></p>
+        </form>
+      </section>
+      <section class="portal-card">
+        <p class="eyebrow">ДӘРІГЕРЛЕР</p><h2>Қолжетімді мамандар</h2>
+        <div class="portal-title-row"><label>Сұрыптау<select id="sort-select"><option value="name">Аты бойынша</option><option value="experience">Тәжірибесі бойынша</option><option value="specialty">Мамандығы бойынша</option></select></label><span id="doctor-count"></span></div>
+        <div id="directory-list" class="portal-list"></div>
+        <div class="portal-title-row"><button class="button button-quiet" id="page-prev" type="button">← Артқа</button><span id="page-label">1-бет</span><button class="button button-quiet" id="page-next" type="button">Келесі →</button></div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

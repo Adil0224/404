@@ -9,7 +9,9 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "node --watch src/index.js",
-    "admin:create": "node scripts/create-admin.js"
+    "admin:create": "node scripts/create-admin.js",
+    "test": "node --test",
+    "db:init": "node scripts/init-db.js"
   },
   "dependencies": {
     "cors": "^2.8.6",
