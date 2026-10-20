@@ -38,13 +38,32 @@
 
 `psql` командасы `.env` файлын автоматты түрде оқымайды. Жоғарыдағы командалар әдепкі `localhost`, `postgres` және `akniet_clinic` мәндеріне арналған; басқаша болса, өз базаңыздың хостын, пайдаланушысын және атауын қойыңыз. Өндірістік ортада `FRONTEND_ORIGINS` мәніне сайттың нақты доменін қосып, `DATABASE_SSL=true` орнатыңыз.
 
+## Docker арқылы іске қосу
+
+Docker Desktop орнатып, репозиторийдің негізгі бумасында:
+
+```powershell
+Copy-Item .env.docker.example .env
+```
+
+`.env` ішіндегі `POSTGRES_PASSWORD` және `JWT_SECRET` мәндерін өзгертіп, содан кейін:
+
+```sh
+docker compose up --build
+```
+
+Сайт `http://localhost:8080`, API `http://localhost:3000` адресінде ашылады. API күйі: `http://localhost:3000/api/health`. Контейнер бірінші рет іске қосылғанда дерекқор кестелері мен үлгі деректер автоматты жасалады. Тоқтату үшін `docker compose down`; дерекқор деректерін де өшіру керек болса, `docker compose down -v` орындаңыз.
+
+GitHub Actions push және pull request кезінде контейнерлерді жинап, API күйін, ашық API тізімдерін және веб-бетті тексереді. `main` тармағына push өткенде GitHub Pages-ке статикалық сайтты жариялайды. GitHub-та **Settings → Pages → Build and deployment → Source → GitHub Actions** параметрін бір рет таңдау қажет. Backend бұлтқа әлі орналастырылмаған; оған бөлек хостинг және құпия мәндер қажет.
+
 ## Негізгі API адрестері
 
 - `POST /api/auth/register` — пациентті тіркеу; JSON: `fullName`, `email` немесе `phone`, `password`.
 - `POST /api/auth/login` — кіру; JSON: `identifier`, `password`. Жауапта Bearer токені келеді.
 - `GET /api/auth/me` және `POST /api/auth/logout` — токен арқылы аккаунтты көру және сессиядан шығу.
-- `GET /api/doctors?q=&specialty=&branch=`, `GET /api/branches`, `GET /api/services` — ашық тізімдер.
-- `GET/POST /api/appointments`, `GET/PATCH /api/appointments/:id` — пациенттің жазылуларын басқару.
+- `GET /api/doctors?q=&specialty=&branch=&page=&limit=&sort=&order=` — іздеу, сүзгі, сұрыптау және беттеу, `GET /api/branches`, `GET /api/services` — ашық тізімдер.
+- `GET /api/appointments?page=&limit=&sort=&order=` — рөлге сай сұрыпталған және беттелген жазылулар.
+- `POST /api/appointments`, `GET/PATCH /api/appointments/:id` — пациенттің жазылуларын басқару.
 - `/api/admin/doctors`, `/api/admin/branches`, `/api/admin/services`, `/api/admin/schedules` — әкімшіге арналған басқару API-лері.
 - `POST /api/admin/staff` — дәрігерге қызметкер аккаунтын ашу және профильмен байланыстыру.
 - Әкімші панелі: `https://adil0224.github.io/404/admin.html`.

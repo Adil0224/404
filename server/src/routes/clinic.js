@@ -11,6 +11,20 @@ function apiError(status, message) {
   return error;
 }
 
+function listOptions(query, allowedSorts, defaultSort) {
+  const page = query.page === undefined ? 1 : Number(query.page);
+  const limit = query.limit === undefined ? 10 : Number(query.limit);
+  const sortKey = query.sort === undefined ? defaultSort : String(query.sort);
+  const order = query.order === undefined ? "asc" : String(query.order).toLowerCase();
+  if (!Number.isInteger(page) || page < 1 || page > 100000 || !Number.isInteger(limit) || limit < 1 || limit > 50) {
+    throw apiError(400, "Page must be positive and limit must be between 1 and 50.");
+  }
+  if (!Object.hasOwn(allowedSorts, sortKey) || !["asc", "desc"].includes(order)) {
+    throw apiError(400, "Choose a supported sort field and order.");
+  }
+  return { page, limit, offset: (page - 1) * limit, sort: allowedSorts[sortKey], direction: order.toUpperCase() };
+}
+
 function isUuid(value) {
   return typeof value === "string" &&
     /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
@@ -67,6 +81,7 @@ function isConflict(error) {
 }
 
 clinicRouter.get("/doctors", async (request, response) => {
+  const options = listOptions(request.query, { name: "d.full_name", specialty: "d.specialty", experience: "d.experience_years" }, "name");
   const values = [];
   const filters = ["d.is_active = TRUE"];
   if (request.query.q) {
@@ -84,6 +99,11 @@ clinicRouter.get("/doctors", async (request, response) => {
       WHERE db.doctor_id = d.id AND b.is_active = TRUE AND b.public_code = $${values.length}
     )`);
   }
+  const totalResult = await pool.query(
+    `SELECT COUNT(*)::int AS total FROM doctors d WHERE ${filters.join(" AND ")}`,
+    values
+  );
+  const total = totalResult.rows[0].total;
   const result = await pool.query(
     `SELECT d.id, d.public_code AS code, d.full_name AS "fullName",
             d.specialty, d.description, d.experience_years AS "experienceYears",
@@ -95,10 +115,11 @@ clinicRouter.get("/doctors", async (request, response) => {
      LEFT JOIN branches b ON b.id = db.branch_id
      WHERE ${filters.join(" AND ")}
      GROUP BY d.id
-     ORDER BY d.full_name`,
+     ORDER BY ${options.sort} ${options.direction}
+     LIMIT ${options.limit} OFFSET ${options.offset}`,
     values
   );
-  response.json({ data: result.rows });
+  response.json({ data: result.rows, pagination: { page: options.page, limit: options.limit, total, pages: Math.ceil(total / options.limit) } });
 });
 
 clinicRouter.get("/branches", async (_request, response) => {
@@ -123,6 +144,7 @@ clinicRouter.get("/reviews", async (_request, response) => {
 });
 
 clinicRouter.get("/appointments", requireAuth, async (request, response) => {
+  const options = listOptions(request.query, { time: "a.starts_at", doctor: "d.full_name", patient: "u.full_name", status: "a.status" }, "time");
   const values = [];
   const filters = ["1 = 1"];
   if (request.user.role === "patient") {
@@ -143,6 +165,11 @@ clinicRouter.get("/appointments", requireAuth, async (request, response) => {
     values.push(request.query.to);
     filters.push(`a.starts_at < $${values.length}::timestamptz`);
   }
+  const totalResult = await pool.query(
+    `SELECT COUNT(*)::int AS total FROM appointments a JOIN users u ON u.id = a.patient_id JOIN doctors d ON d.id = a.doctor_id WHERE ${filters.join(" AND ")}`,
+    values
+  );
+  const total = totalResult.rows[0].total;
   const result = await pool.query(
     `SELECT a.id, a.starts_at AS "startsAt", a.status,
             u.full_name AS "patientName", u.phone AS "patientPhone",
@@ -155,10 +182,11 @@ clinicRouter.get("/appointments", requireAuth, async (request, response) => {
      JOIN branches b ON b.id = a.branch_id
      LEFT JOIN services s ON s.id = a.service_id
      WHERE ${filters.join(" AND ")}
-     ORDER BY a.starts_at`,
+     ORDER BY ${options.sort} ${options.direction}
+     LIMIT ${options.limit} OFFSET ${options.offset}`,
     values
   );
-  response.json({ data: result.rows });
+  response.json({ data: result.rows, pagination: { page: options.page, limit: options.limit, total, pages: Math.ceil(total / options.limit) } });
 });
 
 clinicRouter.get("/appointments/:id", requireAuth, async (request, response) => {
