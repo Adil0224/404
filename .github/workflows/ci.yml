@@ -68,6 +68,14 @@ jobs:
         uses: actions/checkout@v4
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Configure API URL for GitHub Pages
+        env:
+          CLINIC_API_BASE: ${{ vars.CLINIC_API_BASE }}
+        run: node -e "require('node:fs').writeFileSync('api-config.js', 'window.CLINIC_API_BASE = ' + JSON.stringify(process.env.CLINIC_API_BASE || '') + ';\\n')"
       - name: Upload website
         uses: actions/upload-pages-artifact@v3
         with:

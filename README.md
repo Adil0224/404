@@ -79,7 +79,7 @@ k6 run -e API_URL=http://localhost:3000 k6/clinic-load.js
 
 ## Бұлтқа орналастыру
 
-`render.yaml` Render Blueprint жоба үлгісін береді: API контейнері мен PostgreSQL. Render Dashboard-тан осы репозиторийді Blueprint ретінде қосып, `FRONTEND_ORIGINS` мәніне `https://adil0224.github.io` енгізу керек. API іске қосылғаннан кейін `api-config.js` файлына оның `onrender.com` адресін жазып commit жасау қажет. Сол commit GitHub Pages сайтын API-ге жалғайды. Бұл конфигурация аккаунтты өзі жасамайды және сервиске өзі deploy жасамайды. Render тарифтері мен шарттары өзгеруі мүмкін; іске қоспас бұрын Render Dashboard-тағы ағымдағы бағаны тексеріңіз. Blueprint үлгісі: [Render Blueprint құжаттамасы](https://render.com/docs/blueprint-spec).
+`render.yaml` Render Blueprint жоба үлгісін береді: API контейнері мен PostgreSQL. Render Dashboard-тан осы репозиторийді Blueprint ретінде қосып, `FRONTEND_ORIGINS` мәніне `https://adil0224.github.io` енгізу керек. API іске қосылғаннан кейін GitHub репозиторийдің **Settings → Secrets and variables → Actions → Variables** бөлімінде `CLINIC_API_BASE` айнымалысын API-дің `onrender.com` адресімен жасаңыз. Келесі `main` commit Pages deploy кезінде оны автоматты түрде `api-config.js` файлына енгізеді. Render-дегі `FRONTEND_ORIGINS` мәні `https://adil0224.github.io` болуы керек. Бұл конфигурация аккаунтты өзі жасамайды және сервиске өзі deploy жасамайды. Render тарифтері мен шарттары өзгеруі мүмкін; іске қоспас бұрын Render Dashboard-тағы ағымдағы бағаны тексеріңіз. Blueprint үлгісі: [Render Blueprint құжаттамасы](https://render.com/docs/blueprint-spec).
 
 ## Негізгі API адрестері
 
