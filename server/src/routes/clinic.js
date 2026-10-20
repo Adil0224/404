@@ -389,6 +389,7 @@ clinicRouter.get("/admin/schedules", requireAuth, requireRole("admin"), async (_
      FROM doctor_schedules ds
      JOIN doctors d ON d.id = ds.doctor_id
      JOIN branches b ON b.id = ds.branch_id
+     WHERE ds.is_active = TRUE
      ORDER BY d.full_name, ds.weekday, ds.starts_at`
   );
   response.json({ data: result.rows });
