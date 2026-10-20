@@ -1,0 +1,9 @@
+# Local secrets
+.env
+.env.*
+!.env.example
+!.env.docker.example
+server/.env
+# Dependencies
+node_modules/
+server/node_modules/

@@ -1,0 +1,73 @@
+name: Clinic CI and Pages deployment
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Create local CI environment
+        run: |
+          echo "POSTGRES_DB=akniet_clinic" >> .env
+          echo "POSTGRES_USER=akniet" >> .env
+          echo "POSTGRES_PASSWORD=ci-local-password" >> .env
+          echo "JWT_SECRET=$(openssl rand -hex 32)" >> .env
+      - name: Build containers
+        run: docker compose build
+      - name: Start application and run integration smoke checks
+        run: |
+          docker compose up -d
+          for attempt in $(seq 1 40); do
+            if curl --fail --silent http://localhost:3000/api/health; then
+              break
+            fi
+            if [ "$attempt" -eq 40 ]; then
+              docker compose logs
+              exit 1
+            fi
+            sleep 2
+          done
+          curl --fail --silent http://localhost:3000/api/doctors
+          curl --fail --silent http://localhost:3000/api/branches
+          curl --fail --silent http://localhost:3000/api/services
+          curl --fail --silent http://localhost:8080/ > /dev/null
+      - name: Stop containers
+        if: always()
+        run: docker compose down -v
+
+  deploy-pages:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: verify
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+      contents: read
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Upload website
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - name: Deploy website
+        id: deployment
+        uses: actions/deploy-pages@v4
