@@ -95,9 +95,12 @@ CREATE TABLE IF NOT EXISTS appointments (
   status appointment_status NOT NULL DEFAULT 'booked',
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  CONSTRAINT appointment_start_in_future CHECK (starts_at > created_at),
-  CONSTRAINT doctor_time_unique UNIQUE (doctor_id, starts_at)
+  CONSTRAINT appointment_start_in_future CHECK (starts_at > created_at)
 );
+
+ALTER TABLE appointments DROP CONSTRAINT IF EXISTS doctor_time_unique;
+CREATE UNIQUE INDEX IF NOT EXISTS doctor_active_time_unique
+  ON appointments (doctor_id, starts_at) WHERE status = 'booked';
 
 CREATE TABLE IF NOT EXISTS reviews (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
