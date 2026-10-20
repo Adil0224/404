@@ -25,6 +25,14 @@ CREATE TABLE IF NOT EXISTS users (
   CONSTRAINT users_contact_required CHECK (phone IS NOT NULL OR email IS NOT NULL)
 );
 
+CREATE TABLE IF NOT EXISTS auth_sessions (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  expires_at TIMESTAMPTZ NOT NULL,
+  revoked_at TIMESTAMPTZ,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
 CREATE TABLE IF NOT EXISTS branches (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   public_code VARCHAR(40) NOT NULL UNIQUE,
@@ -100,6 +108,8 @@ CREATE TABLE IF NOT EXISTS reviews (
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+CREATE INDEX IF NOT EXISTS auth_sessions_user_expiry_idx
+  ON auth_sessions (user_id, expires_at) WHERE revoked_at IS NULL;
 CREATE INDEX IF NOT EXISTS doctor_schedules_lookup_idx
   ON doctor_schedules (doctor_id, branch_id, weekday, is_active);
 CREATE INDEX IF NOT EXISTS appointments_patient_start_idx
