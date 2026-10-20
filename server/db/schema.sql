@@ -107,7 +107,7 @@ ALTER TABLE appointments DROP CONSTRAINT IF EXISTS appointment_no_overlap;
 ALTER TABLE appointments ADD CONSTRAINT appointment_no_overlap
   EXCLUDE USING gist (
     doctor_id WITH =,
-    tstzrange(starts_at, starts_at + make_interval(mins => duration_minutes), '[)') WITH &&
+    tsrange(starts_at AT TIME ZONE 'UTC', (starts_at AT TIME ZONE 'UTC') + make_interval(mins => duration_minutes), '[)') WITH &&
   ) WHERE (status = 'booked');
 
 CREATE TABLE IF NOT EXISTS reviews (
