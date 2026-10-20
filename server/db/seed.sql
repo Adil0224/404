@@ -42,7 +42,7 @@ JOIN branches b ON b.public_code = assignment.branch_code
 ON CONFLICT DO NOTHING;
 
 INSERT INTO doctor_schedules (doctor_id, branch_id, weekday, starts_at, ends_at, slot_minutes)
-SELECT d.id, b.id, schedule.weekday, schedule.starts_at, schedule.ends_at, 30
+SELECT d.id, b.id, schedule.weekday, hours.starts_at, hours.ends_at, 30
 FROM (VALUES
   ('aidos', 'naz', ARRAY[1,2,3,4,5]::SMALLINT[], TIME '09:00', TIME '17:00'),
   ('ainur', 'utep', ARRAY[1,2,3,4,5]::SMALLINT[], TIME '09:00', TIME '16:00'),
