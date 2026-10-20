@@ -23,7 +23,7 @@ function validAppointmentTime(value) {
     Date.parse(value) > Date.now();
 }
 
-async function slotIsAvailable({ doctorId, branchId, serviceId, startsAt }) {
+async function slotIsAvailable({ doctorId, branchId, serviceId, startsAt, excludeAppointmentId = null }) {
   const result = await pool.query(
     `SELECT EXISTS (
        SELECT 1
@@ -42,14 +42,28 @@ async function slotIsAvailable({ doctorId, branchId, serviceId, startsAt }) {
              ($4::timestamptz AT TIME ZONE 'Asia/Almaty')::time - ds.starts_at
            )) / 60)::int % ds.slot_minutes = 0
          AND ($3::uuid IS NULL OR s.id IS NOT NULL)
+         AND NOT EXISTS (
+           SELECT 1 FROM appointments occupied
+           WHERE occupied.doctor_id = $1 AND occupied.status = 'booked'
+             AND ($5::uuid IS NULL OR occupied.id <> $5::uuid)
+             AND tstzrange(
+               occupied.starts_at,
+               occupied.starts_at + make_interval(mins => occupied.duration_minutes),
+               '[)'
+             ) && tstzrange(
+               $4::timestamptz,
+               $4::timestamptz + make_interval(mins => COALESCE(s.duration_minutes, 30)),
+               '[)'
+             )
+         )
      ) AS available`,
-    [doctorId, branchId, serviceId || null, startsAt]
+    [doctorId, branchId, serviceId || null, startsAt, excludeAppointmentId]
   );
   return result.rows[0].available;
 }
 
 function isConflict(error) {
-  return error.code === "23505";
+  return error.code === "23505" || error.code === "23P01";
 }
 
 clinicRouter.get("/doctors", async (request, response) => {
@@ -184,10 +198,11 @@ clinicRouter.post("/appointments", requireAuth, requireRole("patient"), async (r
   if (!available) throw apiError(409, "This doctor has no available time at the selected branch.");
   try {
     const result = await pool.query(
-      `INSERT INTO appointments (patient_id, doctor_id, branch_id, service_id, starts_at)
-       VALUES ($1, $2, $3, $4, $5::timestamptz)
+      `INSERT INTO appointments (patient_id, doctor_id, branch_id, service_id, starts_at, duration_minutes)
+       VALUES ($1, $2, $3, $4, $5::timestamptz,
+               COALESCE((SELECT duration_minutes FROM services WHERE id = $4), 30))
        RETURNING id, doctor_id AS "doctorId", branch_id AS "branchId",
-                 service_id AS "serviceId", starts_at AS "startsAt", status`,
+                 service_id AS "serviceId", starts_at AS "startsAt", duration_minutes AS "durationMinutes", status`,
       [request.user.id, doctorId, branchId, serviceId, startsAt]
     );
     response.status(201).json({ data: result.rows[0] });
@@ -234,7 +249,8 @@ clinicRouter.patch("/appointments/:id", requireAuth, async (request, response) =
       doctorId: appointment.doctor_id,
       branchId: appointment.branch_id,
       serviceId: appointment.service_id,
-      startsAt: request.body.startsAt
+      startsAt: request.body.startsAt,
+      excludeAppointmentId: appointment.id
     });
     if (!available) throw apiError(409, "This doctor has no available time at the selected branch.");
     try {
