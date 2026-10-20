@@ -242,7 +242,12 @@ $("#login-form").addEventListener("submit", async event => {
         password: $("#login-password").value
       })
     });
-    if (result.user.role !== "admin") throw new Error("Бұл тіркелгіде әкімші рөлі жоқ.");
+    if (result.user.role !== "admin") {
+      token = result.token;
+      await api("auth/logout", { method: "POST" });
+      token = "";
+      throw new Error("Бұл тіркелгіде әкімші рөлі жоқ.");
+    }
     token = result.token;
     $("#admin-user").textContent = result.user.fullName;
     $("#login-card").hidden = true;
