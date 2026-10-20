@@ -56,7 +56,7 @@ async function issueSession(user) {
   return { token, expiresAt: session.rows[0].expires_at };
 }
 
-authRouter.post("/register", async (request, response) => {
+authRouter.post("/register", loginLimiter, async (request, response) => {
   const fullName = typeof request.body.fullName === "string" ? request.body.fullName.trim() : "";
   const email = typeof request.body.email === "string" ? request.body.email.trim().toLowerCase() : null;
   const phone = normalizePhone(typeof request.body.phone === "string" ? request.body.phone.trim() : null);
