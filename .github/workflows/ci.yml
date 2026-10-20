@@ -29,7 +29,11 @@ jobs:
         run: docker compose build
       - name: Start application and run integration smoke checks
         run: |
-          docker compose up -d
+          if ! docker compose up -d; then
+            docker compose ps -a
+            docker compose logs db
+            exit 1
+          fi
           for attempt in $(seq 1 40); do
             if curl --fail --silent http://localhost:3000/api/health; then
               break
