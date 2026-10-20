@@ -2,24 +2,18 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
-import pg from "pg";
-
-const { Pool } = pg;
+import { pool } from "./db.js";
+import { authRouter } from "./auth.js";
+import { clinicRouter } from "./routes/clinic.js";
 const app = express();
 const port = Number(process.env.PORT) || 3000;
+if (!process.env.JWT_SECRET || process.env.JWT_SECRET.length < 32 || process.env.JWT_SECRET.startsWith("replace_")) {
+  throw new Error("Set a random JWT_SECRET with at least 32 characters in server/.env.");
+}
 const allowedOrigins = (process.env.FRONTEND_ORIGINS || "")
   .split(",")
   .map((origin) => origin.trim())
   .filter(Boolean);
-
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: process.env.DATABASE_SSL === "true" ? { rejectUnauthorized: true } : false
-});
-
-pool.on("error", (error) => {
-  console.error("Unexpected PostgreSQL pool error:", error.message);
-});
 
 app.disable("x-powered-by");
 app.use(helmet());
@@ -30,6 +24,10 @@ app.use(cors({
   }
 }));
 app.use(express.json({ limit: "20kb" }));
+app.use((request, _response, next) => {
+  if (!request.body || typeof request.body !== "object" || Array.isArray(request.body)) request.body = {};
+  next();
+});
 
 app.get("/api/health", async (_request, response, next) => {
   try {
@@ -39,6 +37,9 @@ app.get("/api/health", async (_request, response, next) => {
     next(error);
   }
 });
+
+app.use("/api/auth", authRouter);
+app.use("/api", clinicRouter);
 
 app.use((_request, response) => {
   response.status(404).json({ error: "API route not found" });
