@@ -28,15 +28,15 @@
 5. Схеманы және үлгі деректерді кезекпен іске қосыңыз:
 
    ```sh
-   psql "$DATABASE_URL" -f db/schema.sql
-   psql "$DATABASE_URL" -f db/seed.sql
+   psql -h localhost -U postgres -d akniet_clinic -f db/schema.sql
+   psql -h localhost -U postgres -d akniet_clinic -f db/seed.sql
    ```
 
 6. Әкімші тіркелгісін жасау үшін `.env` ішінде уақытша `ADMIN_NAME`, `ADMIN_EMAIL`, `ADMIN_PASSWORD` мәндерін толтырып, `npm run admin:create` орындаңыз. Құпиясөз кемінде 14 таңба болуы керек. Скрипт бір әкімшіні бір рет жасайды. Орындағаннан кейін `.env` ішінен осы үш уақытша мәнді өшіріңіз.
 7. Серверді іске қосыңыз: `npm run dev`.
 8. `http://localhost:3000/api/health` адресінен сервер мен дерекқор байланысын тексеріңіз.
 
-Windows PowerShell-де `psql "$DATABASE_URL"` командасы `.env` файлын автоматты түрде оқымайды. Қосылым жолын `psql` командасына тікелей беріңіз немесе `DATABASE_URL` айнымалысын PowerShell сессиясында орнатыңыз. Өндірістік ортада `FRONTEND_ORIGINS` мәніне сайттың нақты доменін қосып, `DATABASE_SSL=true` орнатыңыз.
+`psql` командасы `.env` файлын автоматты түрде оқымайды. Жоғарыдағы командалар әдепкі `localhost`, `postgres` және `akniet_clinic` мәндеріне арналған; басқаша болса, өз базаңыздың хостын, пайдаланушысын және атауын қойыңыз. Өндірістік ортада `FRONTEND_ORIGINS` мәніне сайттың нақты доменін қосып, `DATABASE_SSL=true` орнатыңыз.
 
 ## Негізгі API адрестері
 
