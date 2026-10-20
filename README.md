@@ -28,8 +28,8 @@
 5. Схеманы және үлгі деректерді кезекпен іске қосыңыз:
 
    ```sh
-   psql "\$DATABASE_URL" -f db/schema.sql
-   psql "\$DATABASE_URL" -f db/seed.sql
+   psql "$DATABASE_URL" -f db/schema.sql
+   psql "$DATABASE_URL" -f db/seed.sql
    ```
 
 6. Әкімші тіркелгісін жасау үшін `.env` ішінде уақытша `ADMIN_NAME`, `ADMIN_EMAIL`, `ADMIN_PASSWORD` мәндерін толтырып, `npm run admin:create` орындаңыз. Құпиясөз кемінде 14 таңба болуы керек. Скрипт бір әкімшіні бір рет жасайды. Орындағаннан кейін `.env` ішінен осы үш уақытша мәнді өшіріңіз.
